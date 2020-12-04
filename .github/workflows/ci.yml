@@ -1,0 +1,35 @@
+name: MainWorkflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+    - name: Build wiki
+      run: |
+        pip install -r requirements.txt
+        mkdocs build
+    - name: upload files to OSS
+      uses: fangbinwei/aliyun-oss-website-action@v1
+      with:
+          accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.ACCESS_KEY_SECRET }}
+          bucket: twiki
+          # e.g. "oss-cn-shanghai.aliyuncs.com"
+          endpoint: oss-cn-hangzhou.aliyuncs.com
+          folder: site
+    # - uses: manyuanrong/setup-ossutil@v1.0
+    #   with:
+    #     # endpoint 可以去oss控制台上查看
+    #     endpoint: "oss-cn-hangzhou.aliyuncs.com"
+    #     # 使用我们之前配置在secrets里面的accesskeys来配置ossutil
+    #     access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+    #     access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+    # - name: Deply To OSS
+    #   run: ossutil cp site oss://twiki/ -rf
