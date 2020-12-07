@@ -6,6 +6,8 @@
 
 [Win10 激活](script/win10_kms.bat)
 
+[office 2016 激活](script/office_2016_kms.bat)
+
 [ubuntu 18.04 apt](script/ubuntu_1804_apt.sh)
 
 [ubuntu 20.04 apt](script/ubuntu_2004_apt.sh)
