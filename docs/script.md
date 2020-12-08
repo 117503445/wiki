@@ -12,6 +12,8 @@
 
 [ubuntu 20.04 apt](script/ubuntu_2004_apt.sh)
 
+[macOS zsh](script/zsh.sh)
+
 ## Docker
 
 [aria2](script/aria2.sh)
