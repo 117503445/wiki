@@ -1,0 +1,1 @@
+docker run --restart=always --name mysql -e MYSQL_ROOT_PASSWORD=${password} -e MYSQL_ROOT_HOST=% -p 3306:3306 -d mysql

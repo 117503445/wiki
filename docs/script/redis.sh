@@ -1,0 +1,1 @@
+docker run -d --restart=always --name redis -p 6379:6379 redis --requirepass ${password}

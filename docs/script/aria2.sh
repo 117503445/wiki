@@ -1,0 +1,1 @@
+docker run -d -it --name aria2 --restart unless-stopped --log-opt max-size=1m -e PUID=$UID -e PGID=$GID -e RPC_SECRET=${password} -e RPC_PORT=8001 -e LISTEN_PORT=6888 -p 8001:8001 -p 6888:6888 -v ${config}:/config ${downloads}:/downloads p3terx/aria2-pro

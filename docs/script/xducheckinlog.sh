@@ -1,0 +1,1 @@
+docker run -d -it --restart=always -p 80:80 -v /root/xducheckinlog:/app/data --name xducheckinlog 117503445/xducheckinlog

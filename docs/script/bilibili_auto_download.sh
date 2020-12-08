@@ -1,0 +1,1 @@
+docker run -d -it --restart=always -p 80:80 -v /root/bilibili_auto_download/download:/app/download --name bilibili_auto_download 117503445/bilibili_auto_download

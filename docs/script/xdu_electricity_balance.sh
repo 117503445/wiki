@@ -1,0 +1,1 @@
+docker run -d -it --restart=always -p 80:80 --name xdu_electricity_balance 117503445/xdu_electricity_balance

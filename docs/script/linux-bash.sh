@@ -1,0 +1,1 @@
+docker run -d --restart=always --name dash --pid host --cap-drop all --net host -v /etc/passwd:/etc/passwd:ro --read-only djtm/linux-dash
