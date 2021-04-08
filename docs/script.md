@@ -1,6 +1,6 @@
 # script
 
-[pip 设置阿里镜像源](script/pip_tuna.sh)
+[pip 设置阿里镜像源](script/pip_ali.sh)
 
 [Git 代理](script/git_proxy.sh)
 
