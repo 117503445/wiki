@@ -1,2 +1,5 @@
 site_name: 117503445's wiki
 theme: material
+plugins:
+  - search
+  - git-revision-date-localized
