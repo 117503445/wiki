@@ -10,9 +10,9 @@
 
 [Win 日期栏显示秒](script/show_seconds.reg)
 
-[ubuntu 18.04 apt](script/ubuntu_1804_apt.sh)
+[ubuntu 18.04 apt ali](script/ubuntu_1804_apt.sh)
 
-[ubuntu 20.04 apt](script/ubuntu_2004_apt.sh)
+[ubuntu 20.04 apt ali](script/ubuntu_2004_apt.sh)
 
 [macOS zsh](script/zsh.sh)
 
