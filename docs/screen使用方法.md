@@ -1,4 +1,4 @@
-# tmux 使用方法
+# screen 使用方法
 
 1. screen -xRR 如果后台有一个现有的screen，则连上去，否则创建一个新的
 
