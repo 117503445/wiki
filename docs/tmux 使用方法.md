@@ -1,4 +1,4 @@
-# tmux使用方法
+# tmux 使用方法
 
 ```text
 创建 tmux new
