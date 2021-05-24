@@ -1,6 +1,6 @@
 # Docker 常用操作
 
-## 阿里镜像源
+## 阿里镜像源 及 日志设置
 
 每个人都有自己的加速地址，记得申请后进行替换。
 
@@ -8,12 +8,19 @@
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://${Your}.mirror.aliyuncs.com"]
+  "registry-mirrors": ["https://${Your}.mirror.aliyuncs.com"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "1m",
+    "max-file": "1"
+  }
 }
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
+日志设置为 每个容器最多只有 1 个 1MB 的日志文件，防止海量日志将磁盘占满。
 
 ## Docker Machine 安装 + 远程访问
 
