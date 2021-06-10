@@ -11,3 +11,9 @@
 对于 Github，cnpmjs.org 提供了加速服务，可以在国内非常快的进行下载。
 
 `git clone --depth=1 https://github.com.cnpmjs.org/offensive-security/exploitdb.git`
+
+## Proxy
+
+设置代理是最吼的。
+
+[Git 代理](script/git_proxy.sh)
