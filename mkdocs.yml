@@ -1,4 +1,12 @@
-site_name: 117503445's wiki
+site_name: "117503445's wiki"
+site_url: "https://wiki.117503445.top"
+
+repo_url: "https://github.com/117503445/wiki"
+repo_name: "117503445/wiki"
+
+site_description: "117503445 的知识库"
+site_author: "117503445"
+
 theme: material
 plugins:
   - search
