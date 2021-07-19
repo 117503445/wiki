@@ -71,3 +71,9 @@ systemctl start docker
 如果确实有远程访问的要求，建议用 docker machine 创建加密的远程访问。
 
 目前体验下来 VS Code 的 Remote 最好。
+
+## 打印 Docker 容器 ip
+
+参考 <https://blog.csdn.net/sannerlittle/article/details/77063800>
+
+`docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)`
