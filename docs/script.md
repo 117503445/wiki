@@ -1,9 +1,5 @@
 # script
 
-[pip 设置阿里镜像源](script/pip_ali.sh)
-
-[Git 代理](script/git_proxy.sh)
-
 [Win10 激活](script/win10_kms.bat)
 
 [office 2016 激活](script/office_2016_kms.bat)
