@@ -6,6 +6,8 @@
 
 [Win 日期栏显示秒](script/show_seconds.reg)
 
+[BIOS 时间 作为 UTC](script/bios_time_as_UTC.bat)
+
 [ubuntu 18.04 apt ali](script/ubuntu_1804_apt.sh)
 
 [ubuntu 20.04 apt ali](script/ubuntu_2004_apt.sh)
