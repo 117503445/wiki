@@ -2,6 +2,10 @@
 
 ## tar
 
+mydir 文件夹 归档为 mydir.tar
+
+`tar -cvf mydir.tar mydir`
+
 mydir 文件夹 压缩为 mydir.tar.gz
 
 `tar -zcvf mydir.tar.gz mydir`
@@ -9,6 +13,15 @@ mydir 文件夹 压缩为 mydir.tar.gz
 解压 mydir.tar.gz
 
 `tar -zxvf mydir.tar.gz`
+
+参数
+
+```sh
+-z 压缩
+-c 建立一个压缩文件
+-v 压缩时显示文件列表
+-f 打包后的文件名，必须在最后
+```
 
 ## find
 
