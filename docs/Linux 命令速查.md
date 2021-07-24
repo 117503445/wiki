@@ -23,6 +23,17 @@ mydir 文件夹 压缩为 mydir.tar.gz
 -f 打包后的文件名，必须在最后
 ```
 
+可以在 .zshrc 中 添加以下代码，作为快捷方式
+
+```sh
+# create .tar
+tardir() { tar -cvf $1.tar $1; }
+# create .tar.gz
+targzdir() { tar -zcvf $1.tar.gz $1; }
+# extra .tar.gz
+untardir() { tar -zxvf $1; }
+```
+
 ## find
 
 查找 ~/Desktop 路径下 tf-test.py 文件
