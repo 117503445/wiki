@@ -1,4 +1,4 @@
-# python开发环境
+# python 开发环境
 
 pip 设置 阿里源
 
