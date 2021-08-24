@@ -136,6 +136,12 @@ ref
 
 ## 预热
 
-todo
+执行下列代码进行预热，但 Neo4j 3.5.x 以后就不用手动预热了。
+
+```cypher
+MATCH (n)
+OPTIONAL MATCH (n)-[r]->()
+RETURN count(n.prop) + count(r.prop);
+```
 
 <https://neo4j.com/developer/kb/warm-the-cache-to-improve-performance-from-cold-start/>
