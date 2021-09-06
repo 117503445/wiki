@@ -40,6 +40,14 @@ untardir() { tar -zxvf $1; }
 
 `find ~/Desktop -iname tf-test.py`
 
+## 大文件定位
+
+`du -h / --max-depth=1 | sort -hr | head -n 10`
+
+## 高内存占用进程定位
+
+`ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head`
+
 ## 查看外网 ipv6 地址
 
 <https://serverfault.com/questions/1007184/how-to-check-ipv6-address-via-command-line>
