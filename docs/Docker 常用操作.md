@@ -1,8 +1,6 @@
 # Docker 常用操作
 
-## 阿里镜像源 及 日志设置
-
-每个人都有自己的加速地址，记得申请后进行替换。
+## 镜像源 及 日志设置
 
 ```bash
 sudo mkdir -p /etc/docker
@@ -19,6 +17,8 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
+镜像源使用了中科大的，实际会被重定向到阿里云的公共镜像加速服务。
 
 日志设置为 每个容器最多只有 1 个 1MB 的日志文件，防止海量日志将磁盘占满。
 
