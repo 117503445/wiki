@@ -8,7 +8,7 @@
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://${Your}.mirror.aliyuncs.com"],
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"],
   "log-driver": "json-file",
   "log-opts": {
     "max-size": "1m",
