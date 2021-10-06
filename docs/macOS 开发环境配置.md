@@ -57,3 +57,9 @@ macOS Big Sur 11.6
 ## Hidden Bar
 
 将功能栏中不常用的图标隐藏起来
+
+## hyperswitch
+
+cmd + tab 时，隐藏不活跃的窗口。
+
+<https://macwk.com/soft/hyperswitch>
