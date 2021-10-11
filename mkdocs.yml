@@ -3,54 +3,31 @@ site_name: 117503445 Wiki
 site_description: 117503445 的个人 WIKI
 site_author: '117503445'
 site_url: https://wiki.117503445.top
-strict: false
+strict: true
 
 # Repository
 repo_name: '117503445/wiki'
 repo_url: 'https://github.com/117503445/wiki'
 
 # Copyright
-copyright: 'Copyright &copy; 2016 - 2021 117503445'
-google_analytics:
-  - 'G-Y6CWY240DE'
-  - 'auto'
+copyright: 'Copyright &copy; 2020 - 2021 117503445'
 
-
-# Theme
 theme:
-  name: null
-  custom_dir: 'mkdocs-material/material'
-  static_templates:
-    - 404.html
-  language: 'zh'
+  name: material
+  language: zh
   palette:
-    primary: 'white'
-    accent: 'red'
-  include_search_page: false
-  search_index_only: true
-  favicon: 'https://cdn.jsdelivr.net/npm/oicdn@0.0.1/favicon.ico'
-
-  logo:
-    icon: 'school'
-  feature:
-    tabs: true
+    primary: black
+    accent: red
+  icon:
+    repo: fontawesome/brands/github-alt
+  features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - search.suggest
+  - search.highlight
   font:
-    text: 'Fira Sans'
-    code: 'Fira Mono'
-
-# Customization
-extra:
-  search:
-    language: 'jp'
-  disqus: 'OI-Wiki'
-  copyright: '<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">CC BY-SA 4.0</a> 和 <a href="https://github.com/zTrix/sata-license">SATA</a>'
-  pagetime: 'on'
-  manifest: 'manifest.webmanifest'
-  githash: ''
-
-extra_javascript:
-  - '_static/js/extra.js?v=16'
-
-
-extra_css:
-  - '_static/css/extra.css?v=13'
+    text: Microsoft YaHei
+    code: Consolas
+  plugins:
+    - search
+    - git-revision-date-localized

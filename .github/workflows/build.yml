@@ -14,9 +14,7 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
       - name: Page Build
-        run: |
-          chmod +x ./scripts/install_theme.sh && ./scripts/install_theme.sh
-          mkdocs build -v
+        run: mkdocs build -v
       - name: upload files to OSS
         uses: fangbinwei/aliyun-oss-website-action@v1
         with:
