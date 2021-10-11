@@ -1,0 +1,28 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    name: Wiki Page Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Page Build
+        run: |
+          chmod +x ./scripts/install_theme.sh && ./scripts/install_theme.sh
+          mkdocs build -v
+      - name: upload files to OSS
+        uses: fangbinwei/aliyun-oss-website-action@v1
+        with:
+            accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
+            accessKeySecret: ${{ secrets.ACCESS_KEY_SECRET }}
+            bucket: twiki
+            # e.g. "oss-cn-shanghai.aliyuncs.com"
+            endpoint: https://oss-cn-hangzhou.aliyuncs.com
+            folder: site
