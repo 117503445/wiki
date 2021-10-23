@@ -1,0 +1,21 @@
+# Package 版本
+
+## 语义化版本
+
+务必遵循 [语义化版本](https://semver.org/lang/zh-CN/)
+
+省流:
+
+- 主版本号：不向下兼容的 API 更改
+- 次版本号：加功能
+- 修订号：修 Bug
+
+## Yarn 1 修改版本
+
+不要直接修改 package.json
+
+```sh
+yarn version --major
+yarn version --minor
+yarn version --patch
+```
