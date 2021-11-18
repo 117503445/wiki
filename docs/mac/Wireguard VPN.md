@@ -20,3 +20,13 @@ sudo wg-quick up wg0 # 启动 wg0 配置文件 对应的连接
 sudo wg-quick down wg0 # 关闭 wg0 配置文件 对应的连接
 sudo wg show # 显示信息
 ```
+
+## 别名
+
+放置于 ~/.zshrc
+
+```sh
+alias wg-restart='sudo wg-quick down wizz && sudo wg-quick up wizz'
+alias wg-start='sudo wg-quick up wizz'
+alias wg-show='sudo wg show'
+```
