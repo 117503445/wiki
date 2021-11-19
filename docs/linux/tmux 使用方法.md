@@ -53,8 +53,6 @@ go build -v -o example-helloworld github.com/lni/dragonboat-example/v3/helloworl
 
 name="dragonboat-helloworld"
 
-tmux set -g mouse on # 启用鼠标、触摸板支持
-
 tmux kill-session -t $name
 tmux new-session -s $name -d
 
@@ -64,9 +62,12 @@ tmux split-window -t $name -h # 创建第三个 panel
 tmux select-pane -t 0 # 选中第一个 panel
 tmux select-layout even-horizontal # 纵向等宽排列
 
+tmux set -g mouse on # 启用鼠标、触摸板支持
+
 tmux send-keys -t 0 "./example-helloworld -nodeid 1" C-m
 tmux send-keys -t 1 "./example-helloworld -nodeid 2" C-m
 tmux send-keys -t 2 "./example-helloworld -nodeid 3" C-m
 
 tmux attach-session -t $name
+
 ```
