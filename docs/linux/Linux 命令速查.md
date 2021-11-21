@@ -30,7 +30,7 @@ mydir 文件夹 压缩为 mydir.tar.gz
 tardir() { tar -cvf $1.tar $1; }
 # create .tar.gz
 targzdir() { tar -zcvf $1.tar.gz $1; }
-# extra .tar.gz
+# extract .tar.gz
 untardir() { tar -zxvf $1; }
 ```
 
