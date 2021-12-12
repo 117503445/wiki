@@ -2,7 +2,7 @@
  * @Author: HaoTian Qi
  * @Date: 2021-12-13 01:40:28
  * @Description: 
- * @LastEditTime: 2021-12-13 01:46:02
+ * @LastEditTime: 2021-12-13 02:09:38
  * @LastEditors: HaoTian Qi
 -->
 
@@ -17,6 +17,7 @@ ref <https://web-worker.cn/Tutorial/vps2arch.html>
 2. 远程链接
 
 ```sh
-wget https://gitlab.com/drizzt/vps2arch/raw/master/vps2arch && chmod +x vps2arch
-sudo ./vps2arch -m https://mirrors.aliyun.com/archlinux/
+sudo su
+wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
+./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
 ```
