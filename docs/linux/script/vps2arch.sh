@@ -130,15 +130,13 @@ install_packages() {
 }
 
 restore_root_pass() {
-    echo "root:vps2arch" | chpasswd
-
 	# If the root password is not set, use vps2arch
-	# if egrep -q '^root:.?:' "/root.$cpu_type/root.passwd"; then
-	# 	echo "root:vps2arch" | chpasswd
-	# else
-	# 	sed -i '/^root:/d' /etc/shadow
-	# 	cat "/root.$cpu_type/root.passwd" >> /etc/shadow
-	# fi
+	if egrep -q '^root:.?:' "/root.$cpu_type/root.passwd"; then
+		echo "root:vps2arch" | chpasswd
+	else
+		sed -i '/^root:/d' /etc/shadow
+		cat "/root.$cpu_type/root.passwd" >> /etc/shadow
+	fi
 }
 
 cleanup() {
@@ -175,7 +173,6 @@ configure_bootloader() {
 			*)		root_devs="${root_devs:+$root_devs }$tmp"	;;
 			esac
 		done
-        mkdir /boot/grub
 		grub-mkconfig > /boot/grub/grub.cfg
 		for root_dev in $root_devs; do
 			grub-install --target=i386-pc --recheck --force "$root_dev"
