@@ -26,7 +26,8 @@ else
 fi
 
 get_worldwide_mirrors() {
-	_download 'https://www.archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4' | awk '/^## /{if ($2 == "Worldwide") { flag=1 } else { flag=0 } } /^#Server/ { if (flag) { sub(/\/\$repo.*/, ""); print $3 } }'
+	echo "https://mirror.pkgbuild.com"
+	_download 'https://www.archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4' | awk '/^## /{if ($2 == "Worldwide") { flag=1 } else { flag=0 } } /^#Server/ { if (flag) { sub(/\/\$repo.*/, ""); print $3 } }'
 }
 
 cpu_type=$(uname -m)
@@ -65,6 +66,7 @@ download_and_extract_bootstrap() {
 	# FIXME support multiple partitions
 	mount --bind / "/root.$cpu_type/mnt"
 	findmnt /boot >/dev/null && mount --bind /boot "/root.$cpu_type/mnt/boot"
+	findmnt /boot/efi >/dev/null && mount --bind /boot/efi "/root.$cpu_type/mnt/boot/efi"
 	# Workaround for Debian
 	mkdir -p "/root.$cpu_type/run/shm"
 	# Workaround for OpenVZ
@@ -85,11 +87,11 @@ configure_chroot() {
 	if ! is_openvz && ! pidof haveged >/dev/null; then
 		# Disable signature check, install and launch haveged and re-enable signature checks.
 		sed -i.bak "s/^[[:space:]]*SigLevel[[:space:]]*=.*$/SigLevel = Never/" "/root.$cpu_type/etc/pacman.conf"
-		chroot_exec 'pacman --noconfirm -Sy haveged && haveged'
+		chroot_exec 'pacman --needed --noconfirm -Sy haveged && haveged'
 		mv "/root.$cpu_type/etc/pacman.conf.bak" "/root.$cpu_type/etc/pacman.conf"
 	fi
 	chroot_exec 'pacman-key --init && pacman-key --populate archlinux'
-	chroot_exec 'pacman --noconfirm -Sy awk'
+	chroot_exec 'pacman --needed --noconfirm -Sy awk'
 	# Generate fstab
 	chroot_exec 'genfstab /mnt >> /etc/fstab'
 
@@ -119,10 +121,15 @@ delete_all() {
 }
 
 install_packages() {
-	local packages="base openssh reflector"
+	local packages="base linux lvm2 openssh reflector"
 	[ "$bootloader" != "none" ] && packages="$packages $bootloader"
 	# XXX Install gptdisk for syslinux. To be removed then FS#45029 will be closed
 	[ "$bootloader" = "syslinux" ] && packages="$packages gptfdisk"
+	[ -f /sys/firmware/efi/fw_platform_size ] && packages="$packages efibootmgr"
+	[ "$network" = "netctl" ] && packages="$packages netctl"
+	while read -r _ mountpoint filesystem _; do
+		[ "$mountpoint" = "/" -a "$filesystem" = "xfs" ] && packages="$packages xfsprogs"
+	done < /proc/mounts
 	# Black magic!
 	"/root.$cpu_type/usr/lib"/ld-*.so --library-path "/root.$cpu_type/usr/lib" \
 		"/root.$cpu_type/usr/bin/chroot" "/root.$cpu_type" /usr/bin/pacstrap -M /mnt $packages
@@ -131,7 +138,7 @@ install_packages() {
 
 restore_root_pass() {
 	# If the root password is not set, use vps2arch
-	if egrep -q '^root:.?:' "/root.$cpu_type/root.passwd"; then
+	if egrep -q '^root:[^$]' "/root.$cpu_type/root.passwd"; then
 		echo "root:vps2arch" | chpasswd
 	else
 		sed -i '/^root:/d' /etc/shadow
@@ -146,10 +153,13 @@ cleanup() {
 }
 
 configure_bootloader() {
-	local root_dev=$(findmnt -no SOURCE /) root_devs= tmp= needs_lvm2=0
+	local root_dev=$(findmnt -no SOURCE /) root_devs= tmp= needs_lvm2=0 uefi=0
 	case $root_dev in
 	/dev/mapper/*) needs_lvm2=1 ;;
 	esac
+	if [ -f /sys/firmware/efi/fw_platform_size ]; then
+		uefi=$(cat /sys/firmware/efi/fw_platform_size)
+	fi
 
 	if [ $needs_lvm2 -eq 1 ]; then
 		# Some distro doesn't use lvmetad by default
@@ -160,6 +170,9 @@ configure_bootloader() {
 		# If you are still using eth* as interface name, disable "strange" ifnames
 		grep -q '^[[:space:]]*eth' /proc/net/dev && \
 			sed -i.bak 's/GRUB_CMDLINE_LINUX_DEFAULT="/&net.ifnames=0 /' /etc/default/grub
+
+		# Disable "graphic" terminal output
+		sed -i.bak 's/^#GRUB_TERMINAL_OUTPUT=console/GRUB_TERMINAL_OUTPUT=console/' /etc/default/grub
 
 		if [ $needs_lvm2 -eq 1 ]; then
 			local vg
@@ -173,11 +186,17 @@ configure_bootloader() {
 			*)		root_devs="${root_devs:+$root_devs }$tmp"	;;
 			esac
 		done
-        mkdir /boot/grub
+		case $uefi in
+		0)
+			for root_dev in $root_devs; do
+				grub-install --target=i386-pc --recheck --force "$root_dev"
+			done
+			;;
+		64)
+			grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+			;;
+		esac
 		grub-mkconfig > /boot/grub/grub.cfg
-		for root_dev in $root_devs; do
-			grub-install --target=i386-pc --recheck --force "$root_dev"
-		done
 	elif [ "$bootloader" = "syslinux" ]; then
 		# If you are still using eth* as interface name, disable "strange" ifnames
 		grep -q '^[[:space:]]*eth' /proc/net/dev && tmp="net.ifnames=0"
