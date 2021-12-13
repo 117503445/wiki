@@ -2,7 +2,7 @@
  * @Author: HaoTian Qi
  * @Date: 2021-12-13 01:40:28
  * @Description: 
- * @LastEditTime: 2021-12-13 11:00:04
+ * @LastEditTime: 2021-12-13 16:22:26
  * @LastEditors: HaoTian Qi
 -->
 
@@ -31,4 +31,4 @@ ref <https://web-worker.cn/Tutorial/vps2arch.html>
 
     启用 China 镜像
 
-6. 
+6. 执行 Arch 的初始化
