@@ -2,7 +2,7 @@
  * @Author: HaoTian Qi
  * @Date: 2021-12-13 01:40:28
  * @Description: 
- * @LastEditTime: 2021-12-13 10:21:45
+ * @LastEditTime: 2021-12-13 11:00:04
  * @LastEditors: HaoTian Qi
 -->
 
@@ -14,13 +14,21 @@ ref <https://web-worker.cn/Tutorial/vps2arch.html>
 
 1. 阿里云服务器安装 ubuntu 16.04
 
-2. 远程链接
+2. 修改 root 密码
 
-```sh
-sudo su
-wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
-./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
+3. 执行脚本
 
-wget http://tinyurl.com/vps2arch && chmod +x vps2arch
-sudo ./vps2arch -m https://mirrors.aliyun.com/archlinux/
-```
+    ```sh
+    wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
+    sudo ./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
+    ```
+
+4. ssh 登录
+
+    `ssh root@ip`
+
+5. 编辑 `/etc/pacman.d/mirrorlist`
+
+    启用 China 镜像
+
+6. 
