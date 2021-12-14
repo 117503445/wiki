@@ -58,9 +58,9 @@ macOS Big Sur 11.6
 
 更好的终端
 
-## Magnet
+## Rectangle
 
-<https://www.macwk.com/soft/magnet>
+`brew install Rectangle`
 
 窗口管理，提供类似 Windows 中 Win + Up 的快捷键
 
