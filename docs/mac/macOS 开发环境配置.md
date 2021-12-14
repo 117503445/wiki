@@ -94,8 +94,8 @@ macOS Big Sur 11.6
 
 将功能栏中不常用的图标隐藏起来
 
-## hyperswitch
+## alt-tab
 
-<https://macwk.com/soft/hyperswitch>
+`brew install alt-tab`
 
-cmd + tab 时，隐藏不活跃的窗口。
+option + tab 时，隐藏不活跃的窗口。
