@@ -28,6 +28,6 @@ theme:
   font:
     text: Microsoft YaHei
     code: Consolas
-  plugins:
-    - search
-    - git-revision-date-localized
+plugins:
+  - search
+  - git-revision-date-localized
