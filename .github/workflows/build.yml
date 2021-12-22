@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch_depth: 0
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: "3.x"
       - name: Install Python dependencies
         run: pip install -r requirements.txt
       - name: Page Build
@@ -18,9 +20,9 @@ jobs:
       - name: upload files to OSS
         uses: fangbinwei/aliyun-oss-website-action@v1
         with:
-            accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
-            accessKeySecret: ${{ secrets.ACCESS_KEY_SECRET }}
-            bucket: twiki
-            # e.g. "oss-cn-shanghai.aliyuncs.com"
-            endpoint: https://oss-cn-hangzhou.aliyuncs.com
-            folder: site
+          accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
+          accessKeySecret: ${{ secrets.ACCESS_KEY_SECRET }}
+          bucket: twiki
+          # e.g. "oss-cn-shanghai.aliyuncs.com"
+          endpoint: https://oss-cn-hangzhou.aliyuncs.com
+          folder: site
