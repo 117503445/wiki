@@ -48,13 +48,10 @@ untardir() { tar -zxvf $1; }
 
 `ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head`
 
-## 查看外网 ipv6 地址
+## 查看文件夹大小
 
-<https://serverfault.com/questions/1007184/how-to-check-ipv6-address-via-command-line>
+`du -h --max-depth=1 .`
 
-```sh
-curl -6 https://ifconfig.co
-curl -6 https://ipv6.icanhazip.com
-telnet -6 ipv6.telnetmyip.com
-ssh -6 sshmyip.com
-```
+-h 用单位 表示大小
+
+. 要查看大小的文件夹
