@@ -34,7 +34,7 @@ docker-machine create --driver generic --generic-ip-address=${ip} --generic-ssh-
 
 ## 创建 网络
 
-`docker network create treafik-proxy`
+`docker network create traefik`
 
 ## 调试镜像
 
