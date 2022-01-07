@@ -59,3 +59,9 @@ untardir() { tar -zxvf $1; }
 ## 端口
 
 `lsof -i:8080`
+
+## 主机名
+
+`code /etc/hostname`
+
+重启后生效
