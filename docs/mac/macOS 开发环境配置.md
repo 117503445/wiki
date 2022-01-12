@@ -82,6 +82,20 @@ macOS Big Sur 11.6
 
 调整 触摸板、鼠标、滚轮 的滚动方向
 
+在安装 Mos 的情况下可以不用
+
+## Mos
+
+<https://github.com/Caldis/Mos>
+
+`brew install mos`
+
+调整鼠标滚动方向，通过插帧平滑鼠标滚动效果
+
+我用的是 罗技 Master 3s 鼠标，关闭阻尼的情况下手感非常恶心，开启阻尼并使用默认的平滑模式会有回弹现象，往下滚的最后会再往上滚。手感也相当不顺滑。
+
+关闭罗技自带的平滑模式，使用 Mos 进行插帧，手感相当好，确实如同宣传标语 "让你的滚轮爽如触控板"
+
 ## Stats
 
 <https://github.com/exelban/stats>
