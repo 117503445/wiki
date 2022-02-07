@@ -28,6 +28,10 @@
 
 [MacType](https://github.com/snowie2000/mactype/releases) 字体渲染优化
 
+[noMeiryoUI](https://github.com/Tatsu-syo/noMeiryoUI/releases) 字体替换
+
+[洛雪音乐助手](https://github.com/lyswhut/lx-music-desktop/releases) 音乐下载
+
 [Internet Download Manager](http://www.downxia.com/downinfo/308952.html) 下载器
 
 [potplayer](https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe) 视频播放器
