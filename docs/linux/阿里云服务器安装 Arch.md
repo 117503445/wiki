@@ -2,7 +2,7 @@
  * @Author: HaoTian Qi
  * @Date: 2021-12-13 01:40:28
  * @Description: 
- * @LastEditTime: 2021-12-13 16:22:26
+ * @LastEditTime: 2022-02-19 19:09:41
  * @LastEditors: HaoTian Qi
 -->
 
@@ -18,10 +18,10 @@ ref <https://web-worker.cn/Tutorial/vps2arch.html>
 
 3. 执行脚本
 
-    ```sh
-    wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
-    sudo ./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
-    ```
+```sh
+wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
+sudo ./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
+```
 
 4. ssh 登录
 
