@@ -56,6 +56,6 @@
 
 [Postman](https://www.postman.com/downloads/) HTTP Client
 
-[visual studio code](https://code.visualstudio.com/) 编辑器
+[visual studio code](https://code.visualstudio.com/) 编辑器, 下载速度慢可参考 <https://zhuanlan.zhihu.com/p/112215618>
 
 [VMware Workstation Pro](https://www.ghxi.com/vmware15.html) 虚拟机
