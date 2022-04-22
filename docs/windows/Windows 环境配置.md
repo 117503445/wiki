@@ -42,6 +42,8 @@
 
 [QuickLook](https://github.com/QL-Win/QuickLook/releases/latest) 空格预览
 
+[Everything](https://www.voidtools.com/zh-cn/) 文件搜索
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
