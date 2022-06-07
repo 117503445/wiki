@@ -74,6 +74,19 @@ systemctl start docker
 
 ## 打印 Docker 容器 ip
 
-参考 <https://blog.csdn.net/sannerlittle/article/details/77063800>
+ref <https://blog.csdn.net/sannerlittle/article/details/77063800>
 
 `docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)`
+
+## docker run -it 在 docker-compose 中的写法
+
+ref <https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose>
+
+```yaml
+version: "3.9"
+services:
+  app:
+    image: app:1.2.3
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+```
