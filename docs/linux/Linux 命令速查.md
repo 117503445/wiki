@@ -65,3 +65,7 @@ untardir() { tar -zxvf $1; }
 `code /etc/hostname`
 
 重启后生效
+
+## 显存
+
+`glxinfo | egrep -i 'device|memory|video'`
