@@ -90,3 +90,7 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
 ```
+
+## 查询容器状态
+
+`docker stats`
