@@ -13,7 +13,7 @@
     <mirrors>
         <mirror>
             <id>aliyunmaven</id>
-            <mirrorOf>*</mirrorOf>
+            <mirrorOf>central</mirrorOf>
             <name>阿里云公共仓库</name>
             <url>https://maven.aliyun.com/repository/public</url>
         </mirror>
