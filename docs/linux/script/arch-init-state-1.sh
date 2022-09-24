@@ -1,3 +1,5 @@
+set -e
+
 curl https://wiki.117503445.top/linux/script/ssh.sh | bash
 
 timedatectl set-timezone Asia/Shanghai
