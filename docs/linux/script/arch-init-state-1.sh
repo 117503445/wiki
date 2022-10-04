@@ -8,17 +8,13 @@ cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
-pacman -S archlinux-keyring --noconfirm
-pacman -Syyu --noconfirm
-pacman -S which zsh btop git docker docker-compose cronie nano vim micro --noconfirm
+pacman -Sy archlinux-keyring --noconfirm
+pacman -Syu --noconfirm
+pacman -S which zsh btop git docker docker-compose cronie nano vim micro net-tools dnsutils inetutils iproute2 --noconfirm --noconfirm
 
 systemctl enable docker.service
 systemctl enable cronie.service
 
-# pacman -S net-tools dnsutils inetutils iproute2 --noconfirm
-
 chsh -s $(which zsh)
-
-# sudo gpasswd -a ${USER} docker
 
 reboot
