@@ -9,7 +9,7 @@ Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
 pacman -Sy archlinux-keyring --noconfirm
-pacman -Syu --noconfirm
+pacman -Syyu --noconfirm
 pacman -S which zsh btop git docker docker-compose cronie nano vim micro net-tools dnsutils inetutils iproute2 --noconfirm --noconfirm
 
 systemctl enable docker.service
