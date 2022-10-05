@@ -8,7 +8,8 @@ QEMU Guest Agent 是运行在虚拟机中的代理，PVE 通过此代理可以�
 
 ```sh
 pacman -S qemu-guest-agent --noconfirm
-cat>/usr/lib/systemd/system/qemu-guest-agent.service<<EOF
+
+cat>>/usr/lib/systemd/system/qemu-guest-agent.service<<EOF
 WantedBy=multi-user.target
 EOF
 systemctl enable --now qemu-guest-agent
