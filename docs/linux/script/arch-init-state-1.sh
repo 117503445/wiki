@@ -10,7 +10,7 @@ EOF
 
 pacman -Sy archlinux-keyring --noconfirm
 pacman -Syyu --noconfirm
-pacman -S which zsh btop git docker docker-compose cronie nano vim micro net-tools dnsutils inetutils iproute2 --noconfirm --noconfirm
+pacman -S which zsh btop git docker docker-compose cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute --noconfirm
 
 systemctl enable docker.service
 systemctl enable cronie.service
