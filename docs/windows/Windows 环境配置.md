@@ -44,6 +44,8 @@
 
 [Everything](https://www.voidtools.com/zh-cn/) 文件搜索
 
+[WizTree](https://diskanalyzer.com/download) 大文件定位
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
