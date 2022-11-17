@@ -30,6 +30,8 @@ export PATH=/opt/miniconda3/bin:~/.local/bin:~/go/bin:$PATH
 export GOPATH=$HOME/go
 
 # export TERMINFO=/usr/share/terminfo # fix conda
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 EOF
 
 mkdir -p /etc/docker
