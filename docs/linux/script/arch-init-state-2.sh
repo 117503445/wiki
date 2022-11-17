@@ -7,6 +7,11 @@ git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosug
 git clone --depth=1 https://ghproxy.com/https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 tee ~/.zshrc <<-'EOF'
+export LANG='en_US.UTF-8'
+export LANGUAGE='en_US:en'
+export LC_ALL='en_US.UTF-8'
+export TERM=xterm
+
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
