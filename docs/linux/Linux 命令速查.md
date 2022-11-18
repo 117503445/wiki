@@ -40,6 +40,29 @@ untar() { tar -xvf $1; }
 untargz() { tar -zxvf $1; }
 ```
 
+## scp
+
+在本地和服务器之间拷贝文件
+
+ref <https://haydenjames.io/linux-securely-copy-files-using-scp/>
+
+```sh
+# Copy file from a remote host to local host
+scp username@from_host:file.txt /local/directory/
+
+# Copy file from local host to a remote host
+scp file.txt username@to_host:/remote/directory/
+
+# Copy directory from a remote host to local host
+scp -r username@from_host:/remote/directory/  /local/directory/
+
+# Copy directory from local host to a remote host
+scp -r /local/directory/ username@to_host:/remote/directory/
+ 
+# Copy file from remote host to remote host
+scp username@from_host:/remote/directory/file.txt username@to_host:/remote/directory/
+```
+
 ## find
 
 查找 ~/Desktop 路径下 tf-test.py 文件
