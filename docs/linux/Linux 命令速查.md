@@ -10,6 +10,10 @@ mydir 文件夹 压缩为 mydir.tar.gz
 
 `tar -zcvf mydir.tar.gz mydir`
 
+解压 mydir.tar
+
+`tar -xvf mydir.tar`
+
 解压 mydir.tar.gz
 
 `tar -zxvf mydir.tar.gz`
@@ -27,11 +31,13 @@ mydir 文件夹 压缩为 mydir.tar.gz
 
 ```sh
 # create .tar
-tardir() { tar -cvf $1.tar $1; }
+ta() { tar -cvf $1.tar $1; }
 # create .tar.gz
-targzdir() { tar -zcvf $1.tar.gz $1; }
+targz() { tar -zcvf $1.tar.gz $1; }
+# extract .tar
+untar() { tar -xvf $1; }
 # extract .tar.gz
-untardir() { tar -zxvf $1; }
+untargz() { tar -zxvf $1; }
 ```
 
 ## find

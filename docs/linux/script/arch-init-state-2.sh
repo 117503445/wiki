@@ -37,6 +37,15 @@ export GOPATH=$HOME/go
 # export TERMINFO=/usr/share/terminfo # fix conda
 
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+# create .tar
+ta() { tar -cvf $1.tar $1; }
+# create .tar.gz
+targz() { tar -zcvf $1.tar.gz $1; }
+# extract .tar
+untar() { tar -xvf $1; }
+# extract .tar.gz
+untargz() { tar -zxvf $1; }
 EOF
 
 mkdir -p /etc/docker
