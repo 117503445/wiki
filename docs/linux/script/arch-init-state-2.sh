@@ -4,7 +4,6 @@ sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install
 
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone --depth=1 https://ghproxy.com/https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
 tee ~/.zshrc <<-'EOF'
 export LANG='en_US.UTF-8'
@@ -12,9 +11,11 @@ export LANGUAGE='en_US:en'
 export LC_ALL='en_US.UTF-8'
 export TERM=xterm
 
+DISABLE_UPDATE_PROMPT=true
+
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="eastwood"
 
 ENABLE_CORRECTION="false"
 DISABLE_AUTO_TITLE="true"
