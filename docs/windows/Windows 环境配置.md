@@ -46,6 +46,8 @@
 
 [WizTree](https://diskanalyzer.com/download) 大文件定位
 
+[Brightness Slider](https://apps.microsoft.com/store/detail/twinkle-tray-brightness-slider/9PLJWWSV01LK?hl=en-us&gl=us) 显示器亮度调节
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
