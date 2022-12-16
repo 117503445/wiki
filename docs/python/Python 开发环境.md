@@ -22,4 +22,7 @@ conda update anaconda
 conda install python
 # or
 # conda install python=3.9
+
+conda create -n myenv
+conda create -n myenv python=3.9
 ```
