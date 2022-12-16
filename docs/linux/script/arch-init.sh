@@ -1,6 +1,43 @@
-set -e
+set -ev
 
-sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
+curl https://wiki.117503445.top/linux/script/ssh.sh | bash
+
+timedatectl set-timezone Asia/Shanghai
+
+cat>/etc/pacman.d/mirrorlist<<EOF
+Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
+EOF
+
+pacman -Sy archlinux-keyring --noconfirm
+pacman -Syyu --noconfirm
+pacman -S which zsh btop git docker docker-compose cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute --noconfirm
+
+cat>>/etc/pacman.conf<<EOF
+[archlinuxcn]
+Server = https://repo.archlinuxcn.org/\$arch
+EOF
+
+pacman -Syu archlinuxcn-keyring --noconfirm
+pacman -S base-devel --noconfirm
+pacman -S yay --noconfirm
+
+mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "1m",
+    "max-file": "1"
+  }
+}
+EOF
+
+systemctl enable --now docker.service
+systemctl enable --now cronie.service
+
+chsh -s $(which zsh)
+
+sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)" "" --unattended
 
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -49,15 +86,3 @@ untar() { tar -xvf $1; }
 untargz() { tar -zxvf $1; }
 EOF
 
-mkdir -p /etc/docker
-tee /etc/docker/daemon.json <<-'EOF'
-{
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "1m",
-    "max-file": "1"
-  }
-}
-EOF
-
-reboot
