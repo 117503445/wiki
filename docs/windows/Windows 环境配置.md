@@ -64,4 +64,6 @@
 
 [visual studio code](https://code.visualstudio.com/) 编辑器, 下载速度慢可参考 <https://zhuanlan.zhihu.com/p/112215618>
 
+[windhawk](https://ramensoftware.com/downloads/windhawk_setup.exe) VS Code 字体修改，见 <../misc/字体.md>
+
 [VMware Workstation Pro](https://www.ghxi.com/vmware15.html) 虚拟机
