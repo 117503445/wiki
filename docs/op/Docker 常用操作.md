@@ -94,3 +94,11 @@ services:
 ## 查询容器状态
 
 `docker stats`
+
+## 同步宿主机时间
+
+```yaml
+volumes:
+  - /etc/localtime:/etc/localtime:ro
+  - /etc/timezone:/etc/timezone:ro
+```
