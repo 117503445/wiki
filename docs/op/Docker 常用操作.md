@@ -24,9 +24,9 @@ sudo systemctl restart docker
 
 ## Docker Machine 安装 + 远程访问
 
-1. 本机安装 docker-machine 工具
-1. 完成公钥登录，本地私钥存在 ~/.ssh/id_rsa
-1. 本地执行
+- 本机安装 docker-machine 工具
+- 完成公钥登录，本地私钥存在 ~/.ssh/id_rsa
+- 本地执行
 
 ```bash
 docker-machine create --driver generic --generic-ip-address=${ip} --generic-ssh-key ~/.ssh/id_rsa --engine-registry-mirror https://${Your}.mirror.aliyuncs.com ${name}
@@ -68,9 +68,9 @@ systemctl start docker-tcp.socket
 systemctl start docker
 ```
 
-如果确实有远程访问的要求，建议用 docker machine 创建加密的远程访问。
+如果确实有远程访问的要求，建议用 Docker Machine 创建加密的远程访问。
 
-目前体验下来 VS Code 的 Remote 最好。
+目前体验下来，建议不要开启远程访问，可以使用 VS Code Remote 进行 Docker 相关操作。
 
 ## 打印 Docker 容器 ip
 
@@ -101,4 +101,10 @@ services:
 volumes:
   - /etc/localtime:/etc/localtime:ro
   - /etc/timezone:/etc/timezone:ro
+```
+
+## docker-compose 拉取最新镜像并运行
+
+```sh
+docker compose pull && docker compose up -d
 ```
