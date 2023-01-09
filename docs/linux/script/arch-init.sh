@@ -4,6 +4,10 @@ curl https://wiki.117503445.top/linux/script/ssh.sh | bash
 
 timedatectl set-timezone Asia/Shanghai
 
+cat>/etc/timezone<<EOF
+Asia/Shanghai
+EOF
+
 cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
