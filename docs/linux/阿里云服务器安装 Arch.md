@@ -2,15 +2,15 @@
  * @Author: HaoTian Qi
  * @Date: 2021-12-13 01:40:28
  * @Description: 
- * @LastEditTime: 2022-02-19 19:09:41
+ * @LastEditTime: 2023-01-18 23:25:58
  * @LastEditors: HaoTian Qi
 -->
 
 # 阿里云服务器安装 Arch
 
-ref <https://web-worker.cn/Tutorial/vps2arch.html>
+ref <https://github.com/felixonmars/vps2arch>
 
-2021.12.13 轻量应用服务器 实践通过
+2023.01.18 ECS 实践通过
 
 1. 阿里云服务器安装 ubuntu 16.04
 
@@ -18,17 +18,9 @@ ref <https://web-worker.cn/Tutorial/vps2arch.html>
 
 3. 执行脚本
 
-```sh
-wget https://wiki.117503445.top/linux/script/vps2arch.sh && chmod +x vps2arch.sh
-sudo ./vps2arch.sh -m https://mirrors.aliyun.com/archlinux/
-```
+    ```sh
+    wget https://felixc.at/vps2arch && chmod +x vps2arch
+    ./vps2arch -m https://mirrors.ustc.edu.cn/archlinux/
+    ```
 
-4. ssh 登录
-
-    `ssh root@ip`
-
-5. 编辑 `/etc/pacman.d/mirrorlist`
-
-    启用 China 镜像
-
-6. 执行 Arch 的初始化
+4. 通过 VNC 执行 `reboot -f`
