@@ -46,12 +46,12 @@ sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-tee ~/.zshrc <<-'EOF'
-export LANG='en_US.UTF-8'
-export LANGUAGE='en_US:en'
-export LC_ALL='en_US.UTF-8'
-export TERM=xterm
+cat>>/etc/environment<<EOF
+LANG=en_US.utf-8
+LC_ALL=en_US.utf-8
+EOF
 
+tee ~/.zshrc <<-'EOF'
 DISABLE_UPDATE_PROMPT=true
 
 export ZSH="$HOME/.oh-my-zsh"
