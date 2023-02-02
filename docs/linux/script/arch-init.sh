@@ -42,9 +42,8 @@ systemctl enable --now cronie.service
 chsh -s $(which zsh)
 
 sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)" "" --unattended
-
-git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-syntax-highlighting.git ~/ohmyzsh/custom/plugins/zsh-syntax-highlighting
+git clone --depth=1 https://ghproxy.com/https://github.com/zsh-users/zsh-autosuggestions.git ~/ohmyzsh/custom/plugins/zsh-autosuggestions
 
 cat>>/etc/environment<<EOF
 LANG=en_US.utf-8
@@ -54,7 +53,7 @@ EOF
 tee ~/.zshrc <<-'EOF'
 DISABLE_UPDATE_PROMPT=true
 
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/ohmyzsh"
 
 ZSH_THEME="eastwood"
 
@@ -89,4 +88,3 @@ untar() { tar -xvf $1; }
 # extract .tar.gz
 untargz() { tar -zxvf $1; }
 EOF
-
