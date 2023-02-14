@@ -87,4 +87,6 @@ targz() { tar -zcvf $1.tar.gz $1; }
 untar() { tar -xvf $1; }
 # extract .tar.gz
 untargz() { tar -zxvf $1; }
+
+alias "dc-update"="docker compose pull && docker compose up -d"
 EOF
