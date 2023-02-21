@@ -98,3 +98,47 @@ scp username@from_host:/remote/directory/file.txt username@to_host:/remote/direc
 ## 显存
 
 `glxinfo | egrep -i 'device|memory|video'`
+
+## shell set
+
+ref <https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html>
+
+-e 遇到错误立刻退出
+-v 将输入打印到终端
+-x 将执行的命令打印到终端
+
+`set -evx`
+
+## shell write file
+
+overvide single line
+
+`echo "this is a line" > file.txt`
+
+append single line
+
+`echo "this is a line" >> file.txt`
+
+overvide multi lines
+
+```sh
+cat << EOF > file.txt
+The current working directory is: $PWD
+You are logged in as $(whoami)
+EOF
+```
+
+append multi lines
+
+```sh
+cat << EOF >> file.txt
+The current working directory is: $PWD
+You are logged in as $(whoami)
+EOF
+```
+
+## sed
+
+todo
+
+mac 上和 Linux 的表现不同
