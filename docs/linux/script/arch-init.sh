@@ -36,9 +36,6 @@ tee /etc/docker/daemon.json <<-'EOF'
 }
 EOF
 
-systemctl enable --now docker.service
-systemctl enable --now cronie.service
-
 chsh -s $(which zsh)
 
 sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)" "" --unattended
@@ -96,3 +93,6 @@ git config --global user.email t117503445@gmail.com
 # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 git config --global push.default current # push the current branch to a branch of the same name
 git config --global core.editor "code --wait" # VS Code
+
+systemctl enable --now cronie.service
+systemctl enable --now docker.service
