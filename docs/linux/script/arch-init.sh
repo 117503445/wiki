@@ -85,7 +85,12 @@ untar() { tar -xvf $1; }
 # extract .tar.gz
 untargz() { tar -zxvf $1; }
 
-alias "dc-update"="docker compose pull && docker compose up -d"
+alias dc="docker compose"
+alias dcu="dc up -d"
+alias dcd="dc down"
+alias dcl="dc logs"
+alias dcp="dc pull"
+alias "dc-update"="dcp && dcu"
 EOF
 
 git config --global user.name "117503445"
