@@ -65,7 +65,7 @@ plugins=(
     extract
 )
 
-# export http_proxy=http://127.0.0.1:1080 && export https_proxy=http://127.0.0.1:1080
+# export all_proxy="socks5://127.0.0.1:1080"
 
 source $ZSH/oh-my-zsh.sh
 
