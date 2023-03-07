@@ -90,7 +90,7 @@ alias dcu="dc up -d"
 alias dcd="dc down"
 alias dcl="dc logs"
 alias dcp="dc pull"
-alias "dc-update"="dcp && dcu"
+alias dc-update="dcp && dcu"
 EOF
 
 git config --global user.name "117503445"
