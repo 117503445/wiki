@@ -90,6 +90,7 @@ alias dcu="dc up -d"
 alias dcd="dc down"
 alias dcl="dc logs"
 alias dcp="dc pull"
+alias dcr="dc restart"
 alias dc-update="dcp && dcu"
 EOF
 
