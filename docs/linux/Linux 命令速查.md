@@ -146,5 +146,5 @@ mac 上和 Linux 的表现不同
 ## journalctl 日志查看
 
 ```sh
-SERVICE=tailscaled && journalctl -b -u $SERVICE --since "$(systemctl show $SERVICE -p ActiveEnterTimestamp | grep -Eo "[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}")" > 1.txt
+journalctl _PID=$(systemctl show --property MainPID --value tailscaled)
 ```
