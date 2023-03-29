@@ -26,7 +26,7 @@ from mitmproxy.addons import export
 
 
 def request(flow: http.HTTPFlow):
-    file.append_all_text('tmp.txt', export.curl_command(flow)+'\n')
+    file.append_text('tmp.txt', export.curl_command(flow)+'\n')
 
 ```
 
