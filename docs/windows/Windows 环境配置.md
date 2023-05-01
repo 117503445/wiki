@@ -10,7 +10,7 @@
 
 [BaiduPan](http://pan.baidu.com/download) 百度网盘
 
-[DidaTODO](https://dida365.com/about/windows) 滴答清单，TODO
+[DidaTODO](https://dida365.com/about/windows) 滴答清单
 
 [feishu](https://www.feishu.cn/download) 飞书
 
@@ -48,6 +48,8 @@
 
 [Brightness Slider](https://apps.microsoft.com/store/detail/twinkle-tray-brightness-slider/9PLJWWSV01LK?hl=en-us&gl=us) 显示器亮度调节
 
+[files](https://github.com/files-community/Files/releases/) 第三方资源管理器
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
@@ -64,6 +66,10 @@
 
 [visual studio code](https://code.visualstudio.com/) 编辑器, 下载速度慢可参考 <https://zhuanlan.zhihu.com/p/112215618>
 
-[windhawk](https://ramensoftware.com/downloads/windhawk_setup.exe) VS Code 字体修改，见 <https://wiki.117503445.top/misc/字体>
+[windhawk](https://ramensoftware.com/downloads/windhawk_setup.exe)
+
+    - VSCode Tweaker，见 <https://wiki.117503445.top/misc/字体>
+    - Taskbar Labels for Windows 11
+    - Disable grouping on the taskbar
 
 [VMware Workstation Pro](https://www.ghxi.com/vmware15.html) 虚拟机
