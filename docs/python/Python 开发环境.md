@@ -1,4 +1,4 @@
-# python 开发环境
+# Python 开发环境
 
 pip 设置 阿里源
 
@@ -25,4 +25,10 @@ conda install python
 
 conda create -n myenv
 conda create -n myenv python=3.9
+```
+
+requests 需要 socks 支持，在 ArchLinux 下可以
+
+```sh
+sudo pacman -S python-pysocks
 ```
