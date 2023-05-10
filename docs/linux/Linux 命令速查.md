@@ -146,5 +146,5 @@ mac 上和 Linux 的表现不同
 ## journalctl 日志查看
 
 ```sh
-journalctl _PID=$(systemctl show --property MainPID --value tailscaled) | code -
+journalctl -f _PID=$(systemctl show --property MainPID --value tailscaled) | code -
 ```
