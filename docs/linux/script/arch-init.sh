@@ -1,5 +1,10 @@
 set -ev
 
+if [[ -f /var/lib/pacman/db.lck ]]; then
+    echo "Pacman database is locked. You could remove /var/lib/pacman/db.lck to continue install."
+    exit 1
+fi
+
 curl https://wiki.117503445.top/linux/script/ssh.sh | bash
 
 timedatectl set-timezone Asia/Shanghai
@@ -88,7 +93,7 @@ untargz() { tar -zxvf $1; }
 alias dc="docker compose"
 alias dcu="dc up -d"
 alias dcd="dc down"
-alias dcl="dc logs"
+alias dcl="dc logs -f"
 alias dcp="dc pull"
 alias dcr="dc restart"
 alias dc-update="dcp && dcu"
@@ -99,6 +104,16 @@ git config --global user.email t117503445@gmail.com
 # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 git config --global push.default current # push the current branch to a branch of the same name
 git config --global core.editor "code --wait" # VS Code
+
+
+if [ -e /dev/virtio-ports/org.qemu.guest_agent.0 ]; then
+    echo "/dev/virtio-ports/org.qemu.guest_agent.0 exists"
+    pacman -S qemu-guest-agent --noconfirm
+    cat>>/usr/lib/systemd/system/qemu-guest-agent.service<<EOF
+WantedBy=multi-user.target
+EOF
+    systemctl enable --now qemu-guest-agent
+fi
 
 systemctl enable --now cronie.service
 systemctl enable --now docker.service
