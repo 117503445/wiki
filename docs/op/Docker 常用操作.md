@@ -1,12 +1,11 @@
 # Docker 常用操作
 
-## 镜像源 及 日志设置
+## 日志设置
 
 ```bash
-sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'EOF'
+mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://990v82t8.mirror.aliyuncs.com"],
   "log-driver": "json-file",
   "log-opts": {
     "max-size": "1m",
@@ -14,22 +13,27 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
   }
 }
 EOF
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+systemctl daemon-reload
+systemctl restart docker
 ```
 
-镜像源使用了中科大的，实际会被重定向到阿里云的公共镜像加速服务。
+没有设置 registry-mirrors。因为阿里云的服务已经停止更新，拉取 latest 时会拉到旧的镜像，产生很大的困扰。
 
 日志设置为 每个容器最多只有 1 个 1MB 的日志文件，防止海量日志将磁盘占满。
 
-## Docker Machine 安装 + 远程访问
+## 拉取代理设置
 
-- 本机安装 docker-machine 工具
-- 完成公钥登录，本地私钥存在 ~/.ssh/id_rsa
-- 本地执行
+ref <https://www.lfhacks.com/tech/pull-docker-images-behind-proxy/>
 
-```bash
-docker-machine create --driver generic --generic-ip-address=${ip} --generic-ssh-key ~/.ssh/id_rsa --engine-registry-mirror https://${Your}.mirror.aliyuncs.com ${name}
+```sh
+mkdir -p /etc/systemd/system/docker.service.d
+tee /etc/systemd/system/docker.service.d/http-proxy.conf <<-'EOF'
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:1080"
+Environment="HTTPS_PROXY=http://127.0.0.1:1080"
+EOF
+systemctl daemon-reload
+systemctl restart docker
 ```
 
 ## 创建 网络
@@ -46,31 +50,6 @@ docker-machine create --driver generic --generic-ip-address=${ip} --generic-ssh-
 docker build -t debuger .
 docker run -it --entrypoint /bin/sh debuger
 ```
-
-## 开启远程访问
-
-在 8888 端口开启了远程访问，因为没有加密，保证机子被挂上挖矿⛏脚本。
-
-```sh
-echo "[Unit]
-Description=Docker Socket for the API
-
-[Socket]
-ListenStream=8888
-BindIPv6Only=both
-Service=docker.service
-
-[Install]
-WantedBy=sockets.target" > /etc/systemd/system/docker-tcp.socket
-systemctl enable docker-tcp.socket
-systemctl stop docker
-systemctl start docker-tcp.socket
-systemctl start docker
-```
-
-如果确实有远程访问的要求，建议用 Docker Machine 创建加密的远程访问。
-
-目前体验下来，建议不要开启远程访问，可以使用 VS Code Remote 进行 Docker 相关操作。
 
 ## 打印 Docker 容器 ip
 
