@@ -25,6 +25,10 @@ wsl --list
 wsl --set-default Arch
 ```
 
+也可以安装 NixOS
+
+<https://github.com/nix-community/NixOS-WSL>
+
 ## CUDA
 
 通过 Geforce 在宿主机安装最新的 NVIDIA 驱动，即可在 WSL 中使用 CUDA
