@@ -32,7 +32,7 @@
 
 [洛雪音乐助手](https://github.com/lyswhut/lx-music-desktop/releases) 音乐下载
 
-[Internet Download Manager](http://www.downxia.com/downinfo/308952.html) 下载器
+[Internet Download Manager](https://lrepacks.net/repaki-programm-dlya-interneta/56-internet-download-manager-repack.html) 下载器
 
 [potplayer](https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe) 视频播放器
 
