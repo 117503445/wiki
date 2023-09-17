@@ -50,6 +50,10 @@
 
 [files](https://github.com/files-community/Files/releases/) 第三方资源管理器
 
+[Clash](https://github.com/Fndroid/clash_for_windows_pkg/releases) 科学上网
+
+[Tailscale](https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe) 虚拟局域网
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
