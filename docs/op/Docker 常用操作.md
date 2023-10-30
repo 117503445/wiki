@@ -17,9 +17,24 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-没有设置 registry-mirrors。因为阿里云的服务已经停止更新，拉取 latest 时会拉到旧的镜像，产生很大的困扰。
-
 日志设置为 每个容器最多只有 1 个 1MB 的日志文件，防止海量日志将磁盘占满。
+
+## 镜像设置
+
+因为阿里云的服务已经停止更新，拉取 latest 时会拉到旧的镜像，产生很大的困扰。请不要使用阿里云镜像加速。
+
+2023.10.30 南大镜像站不错 ：）
+
+```sh
+# /etc/docker/daemon.json
+{
+  registry-mirrors: [https://docker.nju.edu.cn/]
+}
+
+systemctl restart docker.service
+```
+
+<https://sci.nju.edu.cn/9e/05/c30384a564741/page.htm>
 
 ## 拉取代理设置
 
@@ -87,3 +102,11 @@ volumes:
 ```sh
 docker compose pull && docker compose up -d
 ```
+
+## 移除未使用的资源
+
+```sh
+docker system prune --volumes
+```
+
+<https://docs.docker.com/config/pruning/>
