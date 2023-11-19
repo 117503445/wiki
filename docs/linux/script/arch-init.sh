@@ -83,6 +83,7 @@ git config --global user.email t117503445@gmail.com
 # https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushdefault
 git config --global push.default current # push the current branch to a branch of the same name
 git config --global core.editor "code --wait" # VS Code
+git config --global init.defaultBranch master
 
 
 if [ -e /dev/virtio-ports/org.qemu.guest_agent.0 ]; then
