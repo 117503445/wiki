@@ -24,7 +24,9 @@
 
 [Office Tool Plus](https://otp.landian.vip/zh-cn/) Office 安装
 
-[Chrome](https://www.google.com/intl/zh-CN/chrome/) 浏览器
+[Chrome](https://www.google.com/intl/zh-CN/chrome/) Chrome 浏览器
+
+[Firefox](https://www.mozilla.org/en-US/firefox/download/thanks) Firefox 浏览器
 
 [MacType](https://github.com/snowie2000/mactype/releases) 字体渲染优化
 
@@ -32,7 +34,9 @@
 
 [洛雪音乐助手](https://github.com/lyswhut/lx-music-desktop/releases) 音乐下载
 
-[Internet Download Manager](https://lrepacks.net/repaki-programm-dlya-interneta/56-internet-download-manager-repack.html) 下载器
+[Internet Download Manager](https://lrepacks.net/repaki-programm-dlya-interneta/56-internet-download-manager-repack.html) IDM 下载器
+
+[Motrix](https://dl.motrix.cloud/https://github.com/agalwood/Motrix/releases/download/v1.8.19/Motrix-Setup-1.8.19.exe) Motrix 开源下载器
 
 [potplayer](https://t1.daumcdn.net/potplayer/PotPlayer/Version/Latest/PotPlayerSetup64.exe) 视频播放器
 
