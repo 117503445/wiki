@@ -4,7 +4,7 @@
 
 记得要在管理员模式下运行 PowerShell
 
-打开 WSL, Hyper-V 等一系列功能，BIOS 打开 CPU 虚拟化
+打开 WSL, Hyper-V, 虚拟机平台 等一系列功能，BIOS 打开 CPU 虚拟化
 
 更新 WSL
 
@@ -16,9 +16,29 @@ wsl --update
 wsl --status # should newest version
 ```
 
+在 `%UserProfile%\.wslconfig` 写入配置
+
+```ini
+[boot]
+systemd=true
+
+[interop]
+enabled=false
+appendWindowsPath=false
+
+[wsl2]
+memory=48g
+
+[experimental]
+autoMemoryReclaim=gradual
+sparseVhd=true
+```
+
 安装 Arch WSL
 
 <https://github.com/yuk7/ArchWSL/releases>
+
+如果一直 init key 失败，可以 ctrl c 后 `pacman-key --init && pacman-key --populate`
 
 ```powershell
 wsl --list
@@ -57,24 +77,3 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 <https://www.yuque.com/xiongzichao/blog/yu4i5t>
 <https://zhaoji.wang/solve-the-problem-of-windows-10-ports-being-randomly-reserved-occupied-by-hyper-v/>
 
-## 配置
-
-在 `%UserProfile%\.wslconfig` 写入
-
-```ini
-[wsl2]
-processors=8
-memory=8GB
-swap=8GB
-```
-
-```plaintext
-processors = cpu core number
-memory = min(0.25 * total_memory, 8GB)
-swap = 0.25 * total_memory
-```
-
-<https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig>
-<https://dowww.spencerwoo.com/4-advanced/4-3-wslconfig.html>
-<https://zhuanlan.zhihu.com/p/345645621>
-<https://docs.microsoft.com/zh-cn/windows/wsl/setup/environment>
