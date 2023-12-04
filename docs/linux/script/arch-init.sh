@@ -22,7 +22,6 @@ pacman -Syyu --noconfirm
 pacman -S which wget zsh fish btop git docker docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh --noconfirm
 
 cat>>/etc/pacman.conf<<EOF
-
 [archlinuxcn]
 Server = https://repo.archlinuxcn.org/\$arch
 EOF

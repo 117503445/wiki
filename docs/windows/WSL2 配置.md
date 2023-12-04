@@ -19,15 +19,8 @@ wsl --status # should newest version
 在 `%UserProfile%\.wslconfig` 写入配置
 
 ```ini
-[boot]
-systemd=true
-
-[interop]
-enabled=false
-appendWindowsPath=false
-
 [wsl2]
-memory=48g
+memory=48GB
 
 [experimental]
 autoMemoryReclaim=gradual
