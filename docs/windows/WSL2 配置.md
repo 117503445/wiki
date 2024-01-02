@@ -38,6 +38,14 @@ wsl --list
 wsl --set-default Arch
 ```
 
+建议修改配置 `/etc/wsl.conf` 防止影响 Windows 系统
+
+```ini
+[interop]
+enabled = false
+appendWindowsPath = false
+```
+
 也可以安装 NixOS
 
 <https://github.com/nix-community/NixOS-WSL>
