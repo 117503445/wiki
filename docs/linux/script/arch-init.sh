@@ -26,9 +26,8 @@ cat>>/etc/pacman.conf<<EOF
 Server = https://repo.archlinuxcn.org/\$arch
 EOF
 
-pacman -Syu archlinuxcn-keyring --noconfirm
-pacman -S base-devel --noconfirm
-pacman -S yay --noconfirm
+pacman -Sy archlinuxcn-keyring --noconfirm
+pacman -S base-devel yay --noconfirm
 
 mkdir -p /etc/docker
 tee /etc/docker/daemon.json <<-'EOF'
@@ -59,22 +58,22 @@ if status is-interactive
     alias dcr="dc restart"
     alias dc-update="dcp && dcu"
     function ta
-        set source $argv[1]
-        set target (basename $source)".tar"
-        tar -cvf $target $source
+        set source \$argv[1]
+        set target (basename \$source)".tar"
+        tar -cvf \$target \$source
     end
     function targz
-        set source $argv[1]
-        set target (basename $source)".tar.gz"
-        tar -zcvf $target $source
+        set source \$argv[1]
+        set target (basename \$source)".tar.gz"
+        tar -zcvf \$target \$source
     end
     function untar
-        set source $argv[1]
-        tar -xvf $source
+        set source \$argv[1]
+        tar -xvf \$source
     end
     function untargz
-        set source $argv[1]
-        tar -zxvf $source
+        set source \$argv[1]
+        tar -zxvf \$source
     end
 end
 EOF
