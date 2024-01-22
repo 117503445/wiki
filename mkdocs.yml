@@ -3,7 +3,7 @@ site_name: 117503445 Wiki
 site_description: 117503445 的个人 WIKI
 site_author: '117503445'
 site_url: https://wiki.117503445.top
-strict: false
+strict: true
 
 # Repository
 repo_name: '117503445/wiki'
@@ -25,11 +25,10 @@ theme:
   - navigation.tabs.sticky
   - search.suggest
   - search.highlight
+  - content.code.copy
   font:
     text: Microsoft YaHei
     code: Consolas
-  features:
-    - content.code.copy
 plugins:
   - search
   - git-revision-date-localized
