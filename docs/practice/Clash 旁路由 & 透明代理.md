@@ -31,6 +31,7 @@
 我的 ArchLinux 使用 systemd-resolved，它会占用 53 端口，会和 Clash 冲突。所以需要禁止 systemd-resolved 占用 53 端口。
 
 ```sh
+mkdir -p /etc/systemd/resolved.conf.d
 cat << EOF > /etc/systemd/resolved.conf.d/disable.conf
 [Resolve]
 DNSStubListener=no
@@ -314,7 +315,7 @@ route add -net 198.18.0.0/16 gw 192.168.1.2
 
 ### OpenWrt 主路由 DHCP 通报旁路由为 DNS 服务器
 
-网络 - 接口 - LAN - 编辑 - 高级设置 - 使用自定义的 DNS 服务器 - 192.168.99.1
+网络 - 接口 - LAN - 编辑 - 高级设置 - 使用自定义的 DNS 服务器 - 192.168.1.2
 
 ## 运维
 
