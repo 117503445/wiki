@@ -62,7 +62,7 @@ umount /tmp/extroot
 
 重启，然后就会发现扩容成功了。
 
-安装 tailscale
+安装 Tailscale
 
 ```sh
 opkg install tailscale
