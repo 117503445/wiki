@@ -3,7 +3,7 @@ site_name: 117503445 Wiki
 site_description: 117503445 的个人 WIKI
 site_author: '117503445'
 site_url: https://wiki.117503445.top
-strict: true
+strict: false
 
 # Repository
 repo_name: '117503445/wiki'
@@ -28,6 +28,16 @@ theme:
   font:
     text: Microsoft YaHei
     code: Consolas
+  features:
+    - content.code.copy
 plugins:
   - search
   - git-revision-date-localized
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

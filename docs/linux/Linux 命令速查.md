@@ -18,6 +18,10 @@ mydir 文件夹 压缩为 mydir.tar.gz
 
 `tar -zxvf mydir.tar.gz`
 
+/root/.docker 文件夹 压缩为 .docker-no-data.tar, 排除 data 文件夹
+
+`tar -cvf .docker-no-data.tar --exclude="data" .docker`
+
 参数
 
 ```sh
