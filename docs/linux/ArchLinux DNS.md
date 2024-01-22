@@ -1,6 +1,6 @@
 # ArchLinux DNS
 
-使用比较暴力的方式修改 ArchLinux DNS
+使用比较暴力的方式修改 ArchLinux DNS，不推荐
 
 ```sh
 rm /etc/resolv.conf

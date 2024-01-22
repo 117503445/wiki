@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-03-02 10:48:19
 -->
 
-# Alpine 镜像
+# Alpine 镜像源
 
 ```sh
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories

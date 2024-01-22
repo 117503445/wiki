@@ -13,3 +13,5 @@ Name=eth0
 DHCP=ipv4
 EOF
 ```
+
+2024.1.22 更新 此问题已在新版 ArchLinux 中修复，无需再进行上述操作。
