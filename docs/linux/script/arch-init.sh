@@ -59,16 +59,22 @@ if status is-interactive
     alias dcr="dc restart"
     alias dc-update="dcp && dcu"
     function ta
-        tar -cvf \$argv[1].tar \$argv[1]
+        set source $argv[1]
+        set target (basename $source)".tar"
+        tar -cvf $target $source
     end
     function targz
-        tar -zcvf \$argv[1].tar.gz \$argv[1]
+        set source $argv[1]
+        set target (basename $source)".tar.gz"
+        tar -zcvf $target $source
     end
     function untar
-        tar -xvf \$argv[1]
+        set source $argv[1]
+        tar -xvf $source
     end
     function untargz
-        tar -zxvf \$argv[1]
+        set source $argv[1]
+        tar -zxvf $source
     end
 end
 EOF
