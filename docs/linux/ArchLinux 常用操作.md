@@ -1,4 +1,53 @@
-# ArchLinux Emoji 显示修复
+# ArchLinux 常用操作
+
+## 初始化
+
+`curl https://wiki.117503445.top/linux/script/arch-init.sh | bash`
+
+<https://wiki.117503445.top/linux/script/arch-init.sh>
+
+## 更新
+
+```bash
+# https://wiki.archlinux.org/title/Pacman/Package_signing
+pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm
+```
+
+## Swap 分区
+
+```sh
+# not for Btrfs
+dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+swapon /swapfile
+
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+```
+
+ref <https://wiki.archlinuxcn.org/wiki/Swap>
+
+## 云服务器安装
+
+2023.01.18 阿里云 ECS 实践通过
+2023.05.12 腾讯云 轻量应用服务器 实践通过
+
+### 云服务器安装 ubuntu 18.04
+
+### 修改 root 密码
+
+### 执行脚本
+
+```sh
+wget https://felixc.at/vps2arch && chmod +x vps2arch
+./vps2arch -m https://mirrors.ustc.edu.cn/archlinux/
+```
+
+### 重启
+
+通过 VNC 执行 `reboot -f`
+
+## Emoji 显示修复
 
 在 ArchLinux 下，Emoji 往往会显示成乱码，通过修改 Fontconfig 可以解决这个问题。
 
@@ -123,6 +172,4 @@ ln -sf /etc/fonts/conf.avail/75-noto-color-emoji.conf /etc/fonts/conf.d/
 
 然后可以前往 <https://github.com/13rac1/emojione-color-font/blob/master/full-demo.html> 测试 Emoji 是否显示正确。
 
-## ref
-
-<https://ld246.com/article/1581074244078>
+ref <https://ld246.com/article/1581074244078>

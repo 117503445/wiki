@@ -39,3 +39,5 @@ ref <https://blog.skk.moe/post/make-oh-my-zsh-fly/>
 ## 结论
 
 使用 nushell。 nushell 由 Rust 编写。很年轻、现代，有自己的设计理念。主题可以使用 Starship。
+
+2024.1.23 update fish 的兼容性更好，比如 VSCode 适配 fish，但不适配 nushell。所以还是用 fish 吧。

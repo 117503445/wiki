@@ -69,5 +69,4 @@ tmux send-keys -t 1 "./example-helloworld -nodeid 2" C-m
 tmux send-keys -t 2 "./example-helloworld -nodeid 3" C-m
 
 tmux attach-session -t $name
-
 ```
