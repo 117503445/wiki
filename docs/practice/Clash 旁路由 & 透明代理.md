@@ -16,7 +16,7 @@
 
 假设局域网 IP 段为 `192.168.1.0/24`；主路由 IP 为 `192.168.1.1`, 运行 OpenWrt；旁路由 IP 为 `192.168.1.2`，x86 服务器，运行 ArchLinux。手机作为接入网络的设备，不需要修改任何设置、安装任何软件，即可实现科学上网。
 
-1. 主路由通过 DHCP，将旁路由 `192.168.1.2:53` 设置为手机的 DNS 服务器。
+1. 主路由将旁路由 `192.168.1.2:53` 设置为上级 DNS 服务器。
 2. 手机访问 `www.baidu.com` or `www.google.com`，DNS 请求被转发到旁路由。
 3. 旁路由运行 Clash，Clash 在 `192.168.1.2:53` 提供 DNS 服务。基于 [dnsmasq-china-list](https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf) 提供的国内域名列表进行分流，`www.baidu.com` 是国内域名，查询上层 DNS 服务器 `https://dns.alidns.com/dns-query`，返回 `www.baidu.com` 的 IP 地址 `39.156.66.10`; `www.google.com` 是国外域名，查询上层 DNS 服务器 `https://dns.cloudflare.com/dns-query`，返回 `www.google.com` 的 Fake IP `198.18.0.4`, 同时 Clash 保存 `198.18.0.4` 到 `www.google.com` 的映射关系。
 4. 主路由设置了路由规则，将 Fake IP 网段 `198.18.0.0/16` 指向了旁路由 `192.168.1.2`. 手机访问 `www.baidu.com` 时，请求不经过旁路由，直接访问；访问 `www.google.com` 时，请求被转发到旁路由。
@@ -25,6 +25,17 @@
 尽管我非常喜欢使用 Docker，但是 Docker 也会对 iptables 进行一些修改，导致一些额外复杂度的引入。所以我选择二进制 + Systemd 服务的方式运行 Clash，比较简单。
 
 ## 步骤
+
+### 旁路由允许转发
+
+```sh
+cat << EOF > /etc/sysctl.d/99-sysctl.conf
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.forwarding = 1
+net.ipv6.conf.all.forwarding = 1
+EOF
+sysctl --system
+```
 
 ### 旁路由禁止 systemd-resolved 占用 53 端口
     
@@ -147,7 +158,7 @@ systemctl daemon-reload
 systemctl enable --now clash
 ```
 
-###  旁路由设置中国域名更新
+### 旁路由设置中国域名更新
 
 ```sh
 cat << EOF > /clash/china_domain_update.py
@@ -167,7 +178,7 @@ except ImportError:
 def main():
     file_dnsmasq_china = Path("./accelerated-domains.china.conf")
     url = "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf"    
-    subprocess.run(["wget", url, "-O", str(file_dnsmasq_china)])
+    subprocess.run(["wget", url, "-O", str(file_dnsmasq_china)], check=True)
 
     fakeip_direct_rules = '''*.lan
 *.localdomain
@@ -253,8 +264,8 @@ cat << EOF > /clash/clash_tproxy_iptables_setup.sh
 #!/usr/bin/env bash
 
 # ROUTE RULES
-#ip rule add fwmark 1 table 100
-#ip route add local 0.0.0.0/0 dev lo table 100
+ip rule add fwmark 1 table 100
+ip route add local 0.0.0.0/0 dev lo table 100
 
 # CREATE TABLE
 iptables -t mangle -N clash
@@ -294,8 +305,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/sbin/ip rule add fwmark 1 table 100 ; /sbin/ip route add local 0.0.0.0/0 dev lo table 100 ; /usr/bin/bash /clash/clash_tproxy_iptables_setup.sh
-ExecStop=/sbin/ip rule del fwmark 1 table 100 ; /sbin/ip route del local 0.0.0.0/0 dev lo table 100 ; /sbin/iptables -t mangle -F
+ExecStart=/usr/bin/bash /clash/clash_tproxy_iptables_setup.sh
 
 [Install]
 WantedBy=multi-user.target
@@ -313,9 +323,11 @@ systemctl enable --now clash_tproxy_iptables_setup.service
 route add -net 198.18.0.0/16 gw 192.168.1.2
 ```
 
-### OpenWrt 主路由 DHCP 通报旁路由为 DNS 服务器
+### OpenWrt 主路由设置旁路由为上级 DNS
 
-网络 - 接口 - LAN - 编辑 - 高级设置 - 使用自定义的 DNS 服务器 - 192.168.1.2
+网络 - DHCP/DNS - 常规设置 - DNS 转发 - 添加 192.168.1.2 和 223.5.5.5
+
+当旁路由挂掉的时候，主路由 Dnsmasq 会自动切换上级 DNS 为 223.5.5.5，保证国内网站的正常访问。
 
 ## 运维
 
@@ -331,4 +343,3 @@ dig www.google.com
 ## 缺点
 
 - 仅根据域名白名单进行分流，可能不准确
-- 旁路由如果挂了，局域网设备因为指向了旁路由的 DNS 服务器，会无法解析域名。应当在主路由上运行 DNS 服务器，以旁路由为上游 DNS 服务器，并在旁路由挂掉后切换到备用的上游 DNS 服务器。
