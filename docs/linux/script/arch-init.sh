@@ -25,6 +25,9 @@ cat>>/etc/pacman.conf<<EOF
 Server = https://repo.archlinuxcn.org/\$arch
 EOF
 
+# https://www.archlinuxcn.org/archlinuxcn-keyring-manually-trust-farseerfc-key/
+pacman-key --lsign-key "farseerfc@archlinux.org"
+
 pacman -Sy archlinuxcn-keyring --noconfirm
 pacman -S base-devel yay --noconfirm
 
