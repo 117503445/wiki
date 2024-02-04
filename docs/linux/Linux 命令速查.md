@@ -75,7 +75,7 @@ scp username@from_host:/remote/directory/file.txt username@to_host:/remote/direc
 
 ## 大文件定位
 
-`du -h / --max-depth=1 | sort -hr | head -n 10`
+`du -h . --max-depth=1 | sort -hr | head -n 10`
 
 ## 高内存占用进程定位
 
