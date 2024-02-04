@@ -20,11 +20,14 @@ wsl --status # should newest version
 
 ```ini
 [wsl2]
-memory=48GB
+memory=96GB
+networkingMode=mirrored
 
 [experimental]
 autoMemoryReclaim=gradual
 sparseVhd=true
+
+hostAddressLoopback=true
 ```
 
 安装 Arch WSL
@@ -78,3 +81,14 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 <https://www.yuque.com/xiongzichao/blog/yu4i5t>
 <https://zhaoji.wang/solve-the-problem-of-windows-10-ports-being-randomly-reserved-occupied-by-hyper-v/>
 
+## Docker 暴露端口
+
+在 WSL2 镜像网络模式下，Windows 无法连接 Docker 容器的端口
+
+在 /etc/docker/daemon.json 中写入
+
+```json
+{
+    "iptables": false
+}
+```
