@@ -6,5 +6,4 @@
  # @LastEditors: HaoTian Qi
 ### 
 
-mkdir -p ~/.ssh && cd ~/.ssh
-echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYV5Hoaed4dQSmRoZrX+x6p+r16uBHVgv1Zkl8DOMRD 117503445-gen3 >> authorized_keys
+mkdir -p ~/.ssh && echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYV5Hoaed4dQSmRoZrX+x6p+r16uBHVgv1Zkl8DOMRD 117503445-gen3 >> ~/.ssh/authorized_keys

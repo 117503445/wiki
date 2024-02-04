@@ -92,3 +92,5 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
     "iptables": false
 }
 ```
+
+ref <https://www.sulinehk.com/post/fix-docker-connection-issues-in-wsl2-mirrored-networking-mode/>
