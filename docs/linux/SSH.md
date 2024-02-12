@@ -24,12 +24,14 @@ pacman -Sy openbsd-netcat --noconfirm
 连接
 
 ```sh
-# 通过 Http 代理访问 SSH
-ssh -o ProxyCommand='nc -X connect -x localhost:18080 %h %p' myusername@ssh-server
+# 通过 HTTP 代理访问 SSH
+ssh -o ProxyCommand='nc -X connect -x localhost:1081 %h %p' myusername@ssh-server
+# 通过 HTTP 代理访问 SSH, 代理服务器的用户名是 myusername
+ssh -o ProxyCommand='nc -X connect -P myusername -x localhost:1081 %h %p' myusername@ssh-server
 # 通过 Socks5 代理访问 SSH
-ssh -o ProxyCommand='nc -X 5 -x localhost:10028 %h %p' myusername@ssh-server 
+ssh -o ProxyCommand='nc -X 5 -x localhost:1080 %h %p' myusername@ssh-server 
 # 通过 Socks4 代理访问 SSH
-ssh -o ProxyCommand='nc -X 4 -x localhost:10028 %h %p' myusername@ssh-server 
+ssh -o ProxyCommand='nc -X 4 -x localhost:1080 %h %p' myusername@ssh-server 
 ```
 
 写入配置文件 `~/.ssh/config`
@@ -39,7 +41,7 @@ Host myserver
     HostName  my-ssh-server-ip
     User myusername
     Port 12881
-    ProxyCommand nc -X 5 -x localhost:10028 %h %p
+    ProxyCommand nc -X 5 -x localhost:1080 %h %p
 ```
 
 ref <https://www.inflambda.tech/post/2020-04-07-ssh-proxy.html>
