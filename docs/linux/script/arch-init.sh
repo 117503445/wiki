@@ -18,7 +18,7 @@ Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
 pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm
-pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh --noconfirm
+pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --noconfirm
 
 cat>>/etc/pacman.conf<<EOF
 [archlinuxcn]
