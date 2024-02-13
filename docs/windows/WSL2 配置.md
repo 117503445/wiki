@@ -83,6 +83,8 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 
 ## Docker 暴露端口
 
+2024.2.14 update: 别用这个方法，会导致 Docker 容器无法上网。建议在 <https://github.com/microsoft/WSL/issues/10494> 修复前，先用 HOST 网络模式。
+
 在 WSL2 镜像网络模式下，Windows 无法连接 Docker 容器的端口
 
 在 /etc/docker/daemon.json 中写入
@@ -94,3 +96,4 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 ```
 
 ref <https://www.sulinehk.com/post/fix-docker-connection-issues-in-wsl2-mirrored-networking-mode/>
+
