@@ -6,7 +6,7 @@
  * @LastEditors: HaoTian Qi
 -->
 
-# 获取公网 IP 地址
+# 查询公网 IP 地址
 
 ref <https://zhuanlan.zhihu.com/p/438608263>
 
