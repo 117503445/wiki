@@ -90,7 +90,7 @@ ArchLinux 在 [https://geo.mirror.pkgbuild.com/images/](https://geo.mirror.pkgbu
 
 ![](./PVE 安装 ArchLinux.assets/MVrxbBMRWo2i7zxmMpHc9Dj7nEc.png)
 
-Ip 设置，可以是 DHCP，然后去 openwrt 找 分配到的 ip
+Ip 设置，可以是 DHCP，然后去 OpenWrt 找 分配到的 ip
 
 也可以直接静态设置 ip
 
