@@ -97,3 +97,12 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 
 ref <https://www.sulinehk.com/post/fix-docker-connection-issues-in-wsl2-mirrored-networking-mode/>
 
+## 开机自启
+
+准备 `start-arch.ps1`
+
+```powershell
+wsl -d arch bash -c "nohup bash -c 'while true; do sleep 1h; done &' &>/dev/null "
+```
+
+然后参考 <https://wiki.117503445.top/windows/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/>
