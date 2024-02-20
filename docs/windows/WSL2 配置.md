@@ -21,13 +21,10 @@ wsl --status # should newest version
 ```ini
 [wsl2]
 memory=96GB
-networkingMode=mirrored
 
 [experimental]
 autoMemoryReclaim=gradual
 sparseVhd=true
-
-hostAddressLoopback=true
 ```
 
 安装 Arch WSL
