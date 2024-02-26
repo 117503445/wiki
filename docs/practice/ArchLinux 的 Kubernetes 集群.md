@@ -1,6 +1,6 @@
 # ArchLinux 的 Kubernetes 集群
 
-更新于 2022.10.17
+更新于 2024.2.26
 
 脚本尽量自动化，需要修改的地方也标明了。
 
@@ -119,7 +119,8 @@ kubeadm config images pull
 [CNI](https://github.com/containernetworking/cni) 用于协调容器间的网络连接。因为各个部署环境下的网络条件差别巨大，所以 K8s 就把这一部分网络需求抽象成了接口，由不同的网络插件进行实现，以适应不同的网络环境。常见的 CNI 插件有 Flannel, Calico, Cilium 等。我一开始觉得 Flannel 的网络机制最简单，就尝试使用 Flannel，结果一整个国庆假期都花在处理各种网络问题上了，最后也没有成功，后来我换成 Cilium 一下子就搞定了。一方面，Cilium 的文档更加完善，而且还有仪表盘、可观测性等功能，eBPF 等黑科技。另一方面，kubeadm 的开发者也不推荐使用 Flannel，见 <https://github.com/kubernetes/kubeadm/issues/1817#issuecomment-538311661>。
 
 ```sh
-kubeadm init --pod-network-cidr=10.217.0.0/16 # only on master
+# only on master
+kubeadm init --pod-network-cidr=10.217.0.0/16
 ```
 
 输出如下所示
@@ -224,38 +225,25 @@ arch-k8s-cluster2-worker2   Ready    <none>          8d    v1.25.2
 arch-k8s-cluster2-worker3   Ready    <none>          8d    v1.25.2
 ```
 
-安装 yay
-
-```sh
-# 添加 ArchLinuxCN 镜像源
-cat>>/etc/pacman.conf<<EOF
-[archlinuxcn]
-Server = https://repo.archlinuxcn.org/\$arch
-EOF
-
-pacman -Syu archlinuxcn-keyring --noconfirm
-pacman -S base-devel --noconfirm
-pacman -S yay --noconfirm
-```
-
 安装 cilium cli
 
 ```sh
-yay -S cilium-cli-bin hubble-bin
+pacman -Sy cilium-cli --noconfirm
+yay -S hubble-bin
 ```
 
 在 K8s 集群中部署 cilium
 
 ```sh
-cilium install
-cilium hubble enable --ui # 启用 hubble
-cilium connectivity test # 执行网络连通性测试
+cilium-cli install
+cilium-cli hubble enable --ui # 启用 hubble
+cilium-cli connectivity test # 执行网络连通性测试
 ```
 
 查看 cilium 状态
 
 ```sh
-> cilium status
+> cilium-cli status
     /¯¯\
  /¯¯\__/¯¯\    Cilium:         OK
  \__/¯¯\__/    Operator:       OK
