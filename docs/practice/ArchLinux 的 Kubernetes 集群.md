@@ -266,6 +266,17 @@ Image versions    cilium-operator    quay.io/cilium/operator-generic:v1.12.2@sha
                   hubble-relay       quay.io/cilium/hubble-relay:v1.12.2@sha256:6f3496c28f23542f2645d614c0a9e79e3b0ae2732080da794db41c33e4379e5c: 1
 ```
 
+安装 metrics 服务器
+
+```sh
+# https://github.com/kubernetes-sigs/metrics-server/issues/196#issuecomment-1356835423
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl -n kube-system patch deployment metrics-server --type=json \
+-p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--kubelet-insecure-tls"}]]'
+kubectl rollout restart deployment metrics-server -n kube-system
+```
+
+
 开始准备储存。目标是把 worker1 节点的 `/root/nfs` 目录制备为 nfs 的动态卷类型。这非常不适合生产环境，只要 worker1 挂了，所有需要储存的 pod 就挂了，但是对于测试环境还是挺方便的。
 
 ```sh
