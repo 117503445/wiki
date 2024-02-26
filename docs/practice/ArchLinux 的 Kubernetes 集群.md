@@ -35,19 +35,19 @@ uname -a # 检查内核是否更换成功
 安装 kubeadm。K8s 的部署工具还有 Rancher 和 sealos 等，本文中选用官方的 kubeadm。
 
 ```sh
-pacman -S kubeadm --noconfirm
+pacman -Sy kubeadm --noconfirm
 ```
 
 安装和 K8s 有关的 cli。kubectl 是默认的 K8s cli，helm 类似于 K8s 的包管理器，用于简化复杂应用的部署。
 
 ```sh
-pacman -S kubectl helm --noconfirm # only on master
+pacman -Sy kubectl helm --noconfirm # only on master
 ```
 
 K8s 是调度容器的系统，需要在每个节点上安装容器运行时。Docker 名气很大，但是在 K8s 中我选择 CRI-O 作为容器运行时。
 
 ```sh
-pacman -S cri-o --noconfirm # only on master
+pacman -Sy cri-o --noconfirm
 ```
 
 配置 CRI-O
@@ -102,7 +102,7 @@ systemctl enable --now turnswapoff.service
 安装 kubelet, kubelet 是 K8s 运行在每个节点上的 "node agent"
 
 ```sh
-echo "y" "\n" "Y" | pacman -S kubelet
+echo "y" "\n" "Y" | pacman -Sy kubelet
 systemctl enable --now kubelet.service
 ```
 

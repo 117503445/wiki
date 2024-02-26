@@ -20,16 +20,15 @@ EOF
 pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm
 pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --noconfirm
 
-cat>>/etc/pacman.conf<<EOF
-[archlinuxcn]
-Server = https://repo.archlinuxcn.org/\$arch
-EOF
-
-# https://www.archlinuxcn.org/archlinuxcn-keyring-manually-trust-farseerfc-key/
-pacman-key --lsign-key "farseerfc@archlinux.org"
-
-pacman -Sy archlinuxcn-keyring --noconfirm
-pacman -S base-devel yay --noconfirm
+# install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
+pacman -Sy base-devel --noconfirm
+mkdir -p /tmp/yay-build
+useradd -m -G wheel builder && passwd -d builder
+chown -R builder:builder /tmp/yay-build
+echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+su - builder -c "git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay"
+su - builder -c "cd /tmp/yay-build/yay && makepkg -si --noconfirm"
+rm -rf /tmp/yay-build
 
 mkdir -p /etc/docker
 tee /etc/docker/daemon.json <<-'EOF'
