@@ -207,11 +207,10 @@ kubeadm join 192.168.2.160:6443 --token 969kid.0v8m4105arlt0ggj \
         --discovery-token-ca-cert-hash sha256:c0cf33f2454e0e299949d8088ae48e70fccc397f679b8337f7383928c98a8409
 ```
 
-指定 `KUBECONFIG` 环境变量，并写入到 shell 的启动脚本中。
+拷贝 `kubeconfig` 文件
 
 ```sh
-export KUBECONFIG=/etc/kubernetes/admin.conf
-echo '\nexport KUBECONFIG=/etc/kubernetes/admin.conf'>>~/.zshrc
+cp /etc/kubernetes/admin.conf ~/.kube/config
 ```
 
 然后集群就跑起来了，可以通过 `kubectl` 进行管理。
