@@ -17,7 +17,7 @@
 | 192.168.2.162  | ArchLinux | 8C8G, 40G | arch-k8s-cluster2-worker2 | worker2 节点
 | 192.168.2.163  | ArchLinux | 8C8G, 40G | arch-k8s-cluster2-worker3 | worker3 节点
 
-并使用了 [ArchLinux 初始化脚本](https://wiki.117503445.top/linux/ArchLinux%20Init/) 进行初始化。
+并使用了 [ArchLinux 初始化脚本](https://wiki.117503445.top/linux/script/arch-init.sh) 进行初始化。
 
 <https://wangyue.dev/lts/> 描述了过高的内核版本会与某些组件产生兼容性问题，建议更换为 LTS 内核。
 
