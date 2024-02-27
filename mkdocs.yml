@@ -1,6 +1,6 @@
 # Project Information
 site_name: 117503445 Wiki
-site_description: 117503445 的个人 WIKI
+site_description: 117503445 的个人 Wiki
 site_author: '117503445'
 site_url: https://wiki.117503445.top
 strict: true
@@ -10,7 +10,7 @@ repo_name: '117503445/wiki'
 repo_url: 'https://github.com/117503445/wiki'
 
 # Copyright
-copyright: 'Copyright &copy; 2020 - 2023 117503445'
+copyright: 'Copyright &copy; 2020 - 2024 117503445'
 
 theme:
   name: material
