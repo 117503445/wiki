@@ -10,7 +10,7 @@
 
 ```bash
 # https://wiki.archlinux.org/title/Pacman/Package_signing
-pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm
+pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --noconfirm
 ```
 
 ## Swap 分区
