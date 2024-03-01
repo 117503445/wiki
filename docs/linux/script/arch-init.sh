@@ -58,6 +58,7 @@ if status is-interactive
     alias dcp="dc pull"
     alias dcr="dc restart"
     alias dc-update="dcp && dcu"
+    alias upd="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --noconfirm"
     function ta
         set source \$argv[1]
         set target (basename \$source)".tar"
