@@ -53,8 +53,6 @@ mkdir -p ~/.config/fish
 touch ~/.config/fish/node.fish
 cat << EOF > ~/.config/fish/config.fish
 if status is-interactive
-    source ~/.config/fish/node.fish
-
     set fish_greeting # Disable greeting
 
     # set -x all_proxy "socks5://127.0.0.1:1080"; set -x http_proxy \$all_proxy; set -x https_proxy \$all_proxy
@@ -87,6 +85,7 @@ if status is-interactive
         set source \$argv[1]
         tar -zxvf \$source
     end
+    source ~/.config/fish/node.fish
 end
 EOF
 
