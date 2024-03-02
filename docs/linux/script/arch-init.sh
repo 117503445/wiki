@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -ev
 
 if [[ -f /var/lib/pacman/db.lck ]]; then
@@ -17,34 +18,43 @@ cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
-pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm
-pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --noconfirm
+pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
+pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --needed --noconfirm
+
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
-pacman -Sy base-devel --noconfirm
-mkdir -p /tmp/yay-build
-useradd -m -G wheel builder && passwd -d builder
-chown -R builder:builder /tmp/yay-build
-echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-su - builder -c "git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay"
-su - builder -c "cd /tmp/yay-build/yay && makepkg -si --noconfirm"
-rm -rf /tmp/yay-build
+if [ ! -f /usr/bin/yay ]; then
+    pacman -Sy base-devel --needed --noconfirm
+    mkdir -p /tmp/yay-build
+    useradd -m -G wheel builder && passwd -d builder
+    chown -R builder:builder /tmp/yay-build
+    echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+    su - builder -c "git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay"
+    su - builder -c "cd /tmp/yay-build/yay && makepkg -si --noconfirm"
+    rm -rf /tmp/yay-build
+fi
 
-mkdir -p /etc/docker
-tee /etc/docker/daemon.json <<-'EOF'
+if [ ! -f /etc/docker/daemon.json ]; then
+    mkdir -p /etc/docker
+    tee /etc/docker/daemon.json <<-'EOF'
 {
-  "log-driver": "json-file",
-  "log-opts": {
+"log-driver": "json-file",
+"log-opts": {
     "max-size": "1m",
     "max-file": "1"
-  }
+}
 }
 EOF
+fi
 
 chsh -s /usr/bin/fish
+
 mkdir -p ~/.config/fish
+touch ~/.config/fish/node.fish
 cat << EOF > ~/.config/fish/config.fish
 if status is-interactive
+    source ~/.config/fish/node.fish
+
     set fish_greeting # Disable greeting
 
     # set -x all_proxy "socks5://127.0.0.1:1080"; set -x http_proxy \$all_proxy; set -x https_proxy \$all_proxy
@@ -95,10 +105,10 @@ git config --global init.defaultBranch master
 
 if [ -e /dev/virtio-ports/org.qemu.guest_agent.0 ]; then
     echo "/dev/virtio-ports/org.qemu.guest_agent.0 exists"
-    pacman -S qemu-guest-agent --noconfirm
-    cat>>/usr/lib/systemd/system/qemu-guest-agent.service<<EOF
-WantedBy=multi-user.target
-EOF
+    pacman -Su qemu-guest-agent --needed --noconfirm
+    if ! grep -q "WantedBy" /usr/lib/systemd/system/qemu-guest-agent.service; then
+        echo "WantedBy=multi-user.target" >> /usr/lib/systemd/system/qemu-guest-agent.service
+    fi
     systemctl enable --now qemu-guest-agent
 fi
 
