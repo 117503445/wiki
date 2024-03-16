@@ -2,9 +2,9 @@
 
 ## 方法1
 
-`go get -u && go mod tidy`
+`go get -u all`
 
-ref <https://stackoverflow.com/questions/67201708/go-update-all-modules>
+ref <https://execure.medium.com/how-to-update-go-tools-packages-projects-dependencies-12227cb53264>
 
 ## 方法2
 
