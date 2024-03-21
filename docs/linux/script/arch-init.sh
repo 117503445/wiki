@@ -29,8 +29,10 @@ if [ ! -f /usr/bin/yay ]; then
     useradd -m -G wheel builder && passwd -d builder
     chown -R builder:builder /tmp/yay-build
     echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-    su - builder -c "git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay"
-    su - builder -c "cd /tmp/yay-build/yay && makepkg -si --noconfirm"
+    if [ ! -d /tmp/yay-build ]; then
+        su - builder -c "git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay"
+    fi
+    su - builder -c "export GOPROXY=https://goproxy.cn && cd /tmp/yay-build/yay && makepkg -si --noconfirm"
     rm -rf /tmp/yay-build
 fi
 
