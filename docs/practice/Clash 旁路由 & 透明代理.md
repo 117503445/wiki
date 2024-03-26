@@ -59,15 +59,15 @@ ref [Getting rid of systemd-resolved consuming port 53](https://medium.com/@nikt
 安装 Clash
 
 ```sh
-mkdir -p /clash
-cd /clash
+mkdir -p /root/clash
+cd /root/clash
 wget https://downloads.clash.wiki/ClashPremium/clash-linux-amd64-2023.08.17.gz && gzip -d clash-linux-amd64-2023.08.17.gz && mv ./clash-linux-amd64-2023.08.17 clash && chmod +x clash
 ```
 
 准备 Clash 配置文件，记得将 proxies 设置为自己的代理服务器，并修改 secret。
 
 ```sh
-cat << EOF > /clash/config.yaml
+cat << EOF > /root/clash/config.yaml.source
 # restful api
 external-controller: 0.0.0.0:9090
 # 保护 restful api 的口令，记得修改
@@ -137,31 +137,10 @@ Clash 将占用以下端口：
 - 1080/tcp: HTTP(S) / SOCKS5 代理服务，局域网设备可以手动设置代理服务器为 `socks5://192.168.1.2:1080` 或 `http://192.168.1.2:1080` 实现科学上网
 - 1081/tcp, 1081/udp: TProxy 透明代理服务
 
-新建 Systemd 服务
-
-```sh
-cat << EOF > /etc/systemd/system/clash.service
-[Unit]
-Description="Clash is a cross-platform rule-based proxy utility that runs on the network and application layer."
-After=network.target
-
-[Service]
-Type=simple
-Restart=always
-RestartSec=1
-ExecStart=/clash/clash -d /clash
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl enable --now clash
-```
-
 ### 旁路由设置中国域名更新
 
 ```sh
-cat << EOF > /clash/china_domain_update.py
+cat << EOF > /root/clash/china_domain_update.py
 #!/usr/bin/env python
 
 import os
@@ -177,7 +156,8 @@ except ImportError:
 
 def main():
     file_dnsmasq_china = Path("./accelerated-domains.china.conf")
-    url = "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf"    
+    # url = "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf"    
+    url = "https://gitee.com/felixonmars/dnsmasq-china-list/raw/master/accelerated-domains.china.conf"
     subprocess.run(["wget", url, "-O", str(file_dnsmasq_china)], check=True)
 
     fakeip_direct_rules = '''*.lan
@@ -206,8 +186,9 @@ time1.cloud.tencent.com
         fakeip_direct_rules.append(f"+.{domain}")
 
 
-    file_clash_config = Path("/clash/config.yaml")
-    config = load(file_clash_config.read_text(), Loader=Loader)
+    file_clash_config_source = Path("/root/clash/config.yaml.source")
+    file_clash_config = Path("/root/clash/config.yaml")
+    config = load(file_clash_config_source.read_text(), Loader=Loader)
     config['dns']['fake-ip-filter'] = fakeip_direct_rules
     file_clash_config.write_text(dump(config, Dumper=Dumper, allow_unicode=True))
 
@@ -216,13 +197,13 @@ if __name__ == '__main__':
     main()
 EOF
 
-chmod +x /clash/china_domain_update.py
+chmod +x /root/clash/china_domain_update.py
 ```
 
 运行脚本，下载最新的中国域名列表，并更新 Clash 配置文件。
 
 ```sh
-/clash/china_domain_update.py
+/root/clash/china_domain_update.py
 ```
 
 也可以编写 Systemd 服务，每天 4:00 更新一次。
@@ -235,7 +216,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/clash/china_domain_update.py
+ExecStart=/root/clash/china_domain_update.py
 
 [Install]
 WantedBy=multi-user.target
@@ -257,10 +238,33 @@ systemctl daemon-reload
 systemctl enable --now clash_china_domain_update.timer
 ```
 
+### 旁路由设置 Clash 服务
+
+新建 Systemd 服务
+
+```sh
+cat << EOF > /etc/systemd/system/clash.service
+[Unit]
+Description="Clash is a cross-platform rule-based proxy utility that runs on the network and application layer."
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/root/clash/clash -d /root/clash
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl enable --now clash
+```
+
 ###  旁路由设置 TProxy 的相关 iptables 规则
 
 ```sh
-cat << EOF > /clash/clash_tproxy_iptables_setup.sh
+cat << EOF > /root/clash/clash_tproxy_iptables_setup.sh
 #!/usr/bin/env bash
 
 # ROUTE RULES
@@ -292,7 +296,7 @@ iptables -t mangle -A clash -p tcp -j TPROXY --on-port 1081 --tproxy-mark 1
 # REDIRECT
 iptables -t mangle -A PREROUTING -j clash
 EOF
-chmod +x /clash/clash_tproxy_iptables_setup.sh
+chmod +x /root/clash/clash_tproxy_iptables_setup.sh
 ```
 
 编写 Systemd 服务，每次启动时设置 TProxy 规则。
@@ -305,7 +309,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash /clash/clash_tproxy_iptables_setup.sh
+ExecStart=/usr/bin/bash /root/clash/clash_tproxy_iptables_setup.sh
 
 [Install]
 WantedBy=multi-user.target
@@ -319,25 +323,26 @@ systemctl enable --now clash_tproxy_iptables_setup.service
 
 将 Fake IP 网段 `198.18.0.0/16` 指向旁路由
 
-```sh
-route add -net 198.18.0.0/16 gw 192.168.1.2
-```
+网络 - 路由 - 添加: LAN, unicast, 198.18.0.0/16, 192.168.1.2
 
 ### OpenWrt 主路由设置旁路由为上级 DNS
 
-网络 - DHCP/DNS - 常规设置 - DNS 转发 - 添加 192.168.1.2 和 223.5.5.5
+网络 - DHCP/DNS - 常规设置 - DNS 转发 - 添加 192.168.1.2
 
-当旁路由挂掉的时候，主路由 Dnsmasq 会自动切换上级 DNS 为 223.5.5.5，保证国内网站的正常访问。
+网络 - DHCP/DNS - HOSTS 和解析文件 - 忽略解析文件
 
 ## 运维
 
 检查 DNS 解析是否正确
 
 ```sh
-# www.baidu.com 应解析为直连 ip，如 39.156.66.10
-dig www.baidu.com
-# www.google.com 应解析为 Fake IP，如 198.18.0.4
-dig www.google.com
+# baidu.com 应解析为直连 ip，如 39.156.66.10
+dig baidu.com
+# google.com 应解析为 Fake IP，如 198.18.0.4
+dig google.com
+
+/etc/init.d/dnsmasq restart # 重启 dnsmasq
+/etc/init.d/uhttpd restart # 重启 luci
 ```
 
 ## 缺点
