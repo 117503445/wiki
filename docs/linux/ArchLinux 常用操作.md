@@ -6,6 +6,14 @@
 
 <https://wiki.117503445.top/linux/script/arch-init.sh>
 
+## archinstall
+
+```sh
+archinstall --config https://wiki.117503445.top/linux/script/user_configuration.json --creds https://wiki.117503445.top/linux/script/user_credentials.json
+```
+
+然后修改 主机名、硬盘分区、用户密码
+
 ## 更新
 
 ```bash
