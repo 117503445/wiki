@@ -70,6 +70,8 @@ service tailscale start
 tailscale up --advertise-routes=192.168.50.0/24 --login-server=$LOGIN_SERVER  --accept-routes=true --accept-dns=false
 ```
 
+2024.3.28 update: 可以在旁路由上装 Tailscale，具体见 [Tailscale 自建 & 旁路由](https://wiki.117503445.top/practice/Tailscale%20%E8%87%AA%E5%BB%BA%20%26%20%E6%97%81%E8%B7%AF%E7%94%B1/)
+
 安装 OpenClash
 
 要注意 dnsmasq 的卸载和 dnsmasq-full 的安装一定要在同一行命令中进行，不然就会出现上不了网导致无法安装 dnsmasq-full 的尴尬局面。
@@ -78,5 +80,7 @@ tailscale up --advertise-routes=192.168.50.0/24 --login-server=$LOGIN_SERVER  --
 opkg update
 opkg remove dnsmasq && opkg install coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base
 ```
+
+2024.3.28 update: 可以在旁路由上装 Clash，具体见 [Clash 旁路由 & 透明代理](https://wiki.117503445.top/practice/Clash%20%E6%97%81%E8%B7%AF%E7%94%B1%20%26%20%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/)
 
 Enjoy :)
