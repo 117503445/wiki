@@ -65,7 +65,7 @@ services:
       - "traefik.http.routers.headscale-ui.rule=Host(`headscale-ui.cloud.example.com`)"
       - "traefik.http.routers.headscale-ui.tls=true"
       - "traefik.http.services.headscale-ui.loadbalancer.server.port=80"
-      - "traefik.http.services.headscale-ui.middlewares=basic-auth@file"
+      - "traefik.http.routers.headscale-ui.middlewares=basic-auth@file"
     networks:
       - traefik
 networks:
