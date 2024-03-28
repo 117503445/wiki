@@ -628,11 +628,11 @@ docker compose restart
 
 ```bash
 tailscale netcheck
-Report:
-        * Nearest DERP: home1
-        * DERP latency:
-                -  home1: 2ms   (home1)
-                -  home2: 5.6ms   (home2)
+# Report:
+#         * Nearest DERP: home1
+#         * DERP latency:
+#                 -  home1: 2ms   (home1)
+#                 -  home2: 5.6ms (home2)
 ```
 
 就说明 Derper 部署成功了。Tailscale 会挑选延迟最低的 DERP 服务器。
