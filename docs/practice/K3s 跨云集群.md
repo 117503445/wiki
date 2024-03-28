@@ -36,7 +36,11 @@ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIR
 
 然后执行 `cat /var/lib/rancher/k3s/server/node-token`，获取 K3s 的 token。
 
-执行 `export KUBECONFIG=/etc/rancher/k3s/k3s.yaml`，可以考虑把这句命令放进 `.zshrc`
+执行 `export KUBECONFIG=/etc/rancher/k3s/k3s.yaml`，可以考虑把这句命令放进 `.zshrc`。也可以拷贝。
+
+```sh
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+```
 
 在内网机器上执行下列安装命令。其中 `$CLOUD_TAILSCALE_IP` 是云服务器的 Tailscale 虚拟 IP, `$MY_TAILSCALE_IP` 是内网机器的 Tailscale 虚拟 IP，`$NODE_TOKEN` 是 K3s 集群的 token。
 
