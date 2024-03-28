@@ -18,6 +18,7 @@ cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
+pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
 pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --needed --noconfirm
 
