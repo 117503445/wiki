@@ -77,6 +77,8 @@ scp username@from_host:/remote/directory/file.txt username@to_host:/remote/direc
 
 `du -h . --max-depth=1 | sort -hr | head -n 10`
 
+也可以使用 [ncdu](https://dev.yorhel.nl/ncdu)
+
 ## 高内存占用进程定位
 
 `ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head`
