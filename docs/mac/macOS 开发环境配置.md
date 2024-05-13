@@ -129,12 +129,13 @@ sudo sh -c 'echo /opt/homebrew/bin/fish >> /etc/shells'
 chsh -s /opt/homebrew/bin/fish
 brew install alt-tab
 brew install Rectangle
+brew install --cask snipaste
+brew install --cask iina
 
 brew install mos
 brew install stats
 brew install --cask hiddenbar
-brew install --cask iina
-
+brew install MonitorControl
 brew install go
 go env -w GO111MODULE=on && go env -w GOPROXY=https://goproxy.cn,direct
 
