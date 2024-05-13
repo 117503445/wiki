@@ -113,3 +113,30 @@ macOS Big Sur 11.6
 `brew install alt-tab`
 
 option + tab 时，隐藏不活跃的窗口。
+
+## 脚本
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# add Homebrew to PATH
+
+brew install --cask visual-studio-code
+brew install orbstack
+brew install --cask warp
+brew install --cask neteasemusic
+brew install fish
+sudo sh -c 'echo /opt/homebrew/bin/fish >> /etc/shells'
+chsh -s /opt/homebrew/bin/fish
+brew install alt-tab
+brew install Rectangle
+
+brew install mos
+brew install stats
+brew install --cask hiddenbar
+brew install --cask iina
+
+brew install go
+go env -w GO111MODULE=on && go env -w GOPROXY=https://goproxy.cn,direct
+
+brew install syncthing
+```
