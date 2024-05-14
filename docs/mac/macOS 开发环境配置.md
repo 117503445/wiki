@@ -141,4 +141,9 @@ go env -w GO111MODULE=on && go env -w GOPROXY=https://goproxy.cn,direct
 
 brew install syncthing
 brew install --cask docker
+
+brew tap ivaquero/chinese
+brew update
+brew install --cask clash-verge-rev
+brew edit clash-verge-rev # prevent hash mismatch
 ```
