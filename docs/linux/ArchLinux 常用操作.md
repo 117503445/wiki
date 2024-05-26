@@ -16,10 +16,18 @@ archinstall --config https://wiki.117503445.top/linux/script/user_configuration.
 
 ## 更新
 
-```bash
+```sh
 # https://wiki.archlinux.org/title/Pacman/Package_signing
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --noconfirm
 ```
+
+签名出错时，可以删除 `gnupg` 后重试
+
+```sh
+rm -rf /etc/pacman.d/gnupg
+```
+
+ref <https://razonyang.com/zh-hans/blog/archlinux/reset-keyring/>
 
 ## Swap 分区
 
