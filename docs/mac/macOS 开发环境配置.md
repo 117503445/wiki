@@ -147,3 +147,21 @@ brew update
 brew install --cask clash-verge-rev
 brew edit clash-verge-rev # prevent hash mismatch
 ```
+
+## VSCode Server 无法安装扩展
+
+在 `devcontainer.json` 中写
+
+```json
+{
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "extensions.verifySignature": false
+            }
+        }
+    }
+}
+```
+
+ref <https://github.com/microsoft/vscode-remote-release/issues/8541>
