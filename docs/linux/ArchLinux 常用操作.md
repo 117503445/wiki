@@ -10,6 +10,7 @@
 
 ```sh
 # archinstall 可能不会覆盖原有的 mirror，导致最后使用了错误的 mirror
+systemctl mask reflector.service
 cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
