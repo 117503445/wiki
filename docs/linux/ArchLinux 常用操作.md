@@ -9,6 +9,11 @@
 ## archinstall
 
 ```sh
+# archinstall 可能不会覆盖原有的 mirror，导致最后使用了错误的 mirror
+cat>/etc/pacman.d/mirrorlist<<EOF
+Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
+EOF
+
 archinstall --config https://wiki.117503445.top/linux/script/user_configuration.json --creds https://wiki.117503445.top/linux/script/user_credentials.json
 ```
 
