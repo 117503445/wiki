@@ -9,13 +9,15 @@
 ## archinstall
 
 ```sh
+systemctl is-system-running # 预期 running，否则检查网络或者其他问题
+
 # archinstall 可能不会覆盖原有的 mirror，导致最后使用了错误的 mirror
 systemctl mask reflector.service
 cat>/etc/pacman.d/mirrorlist<<EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
 EOF
 
-archinstall --config https://wiki.117503445.top/linux/script/user_configuration.json --creds https://wiki.117503445.top/linux/script/user_credentials.json
+archinstall --config https://wiki.117503445.top/linux/script/user_configuration.json --creds https://wiki.117503445.top/linux/script/user_credentials.json --skip-version-check
 ```
 
 然后修改 主机名、硬盘分区、用户密码
