@@ -67,6 +67,12 @@ scp -r /local/directory/ username@to_host:/remote/directory/
 scp username@from_host:/remote/directory/file.txt username@to_host:/remote/directory/
 ```
 
+## rsync
+
+```sh
+rsync server:/a.txt . --progress --partial
+```
+
 ## find
 
 查找 ~/Desktop 路径下 tf-test.py 文件
