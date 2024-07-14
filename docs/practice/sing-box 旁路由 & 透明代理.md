@@ -646,11 +646,7 @@ OpenWrt LuCI - 网络 - 路由 - 添加: LAN, unicast, 198.18.0.0/16, 192.168.1.
 
 ### OpenWrt 主路由配置 mosdns
 
-禁用默认的 dnsmasq
 
-```text
-OpenWrt LuCI - 网络 - DHCP/DNS - 高级设置 - DNS 服务器端口 - 0
-```
 
 下载 [mosdns](https://github.com/IrineSistiana/mosdns/releases)，将 `mosdns` 二进制放在 `/root/.app/mosdns/mosdns`。
 
@@ -686,7 +682,7 @@ plugins:
     type: udp_server
     args:
       entry: fallback_main
-      listen: 192.168.100.1:53
+      listen: 192.168.100.1:5353
 ```
 
 运行 mosdns 并设置开机自启
@@ -753,6 +749,16 @@ logs() {
 EOF
 service mosdns enable
 service mosdns start
+```
+
+调整 dnsmasq
+
+```text
+OpenWrt LuCI - 网络 - DHCP/DNS - 常规设置 - DNS 转发 - 添加 192.168.1.1:5353
+OpenWrt LuCI - 网络 - DHCP/DNS - HOSTS 和解析文件 - 忽略解析文件
+
+// 当存在域名指向 rfc1918 地址时，需禁用重定向保护
+OpenWrt LuCI - 网络 - DHCP/DNS - 常规设置 - 重定向保护 - 取消
 ```
 
 ## 常用运维操作
