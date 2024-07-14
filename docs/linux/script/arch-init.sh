@@ -20,7 +20,7 @@ EOF
 
 pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
-pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync --needed --noconfirm
+pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi --needed --noconfirm
 
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
@@ -113,6 +113,8 @@ if [ -e /dev/virtio-ports/org.qemu.guest_agent.0 ]; then
     fi
     systemctl enable --now qemu-guest-agent
 fi
+
+curl https://wiki.117503445.top/linux/script/sysctl-quic.sh | bash
 
 systemctl enable --now cronie.service
 systemctl enable --now docker.service
