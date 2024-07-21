@@ -134,6 +134,12 @@ dig baidu.com 223.5.5.5 # 指定查询服务器
 dig baidu.com +trace # 追踪 DNS 解析过程
 ```
 
+### resolvectl
+
+```sh
+resolvectl query baidu.com # 查询 baidu.com 的 DNS 信息
+```
+
 ## HTTP 交互
 
 ### curl
