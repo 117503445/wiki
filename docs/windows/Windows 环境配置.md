@@ -60,6 +60,8 @@
 
 [Keyviz](https://github.com/mulaRahul/keyviz) 显示键位
 
+[ScreenToGif](https://github.com/NickeManarin/ScreenToGif) 屏幕录制为 GIF
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端
