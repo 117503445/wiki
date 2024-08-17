@@ -58,6 +58,8 @@
 
 [Tailscale](https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe) 虚拟局域网
 
+[Keyviz](https://github.com/mulaRahul/keyviz) 显示键位
+
 ## 开发软件
 
 [Powershell 7](https://github.com/PowerShell/PowerShell/releases) 终端

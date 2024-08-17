@@ -11,6 +11,9 @@
 ```sh
 systemctl is-system-running # 预期 running，否则检查网络或者其他问题
 
+# 2024.8.11 systemd-userdbd 经常卡住，直接干掉就行
+systemctl stop systemd-userdbd
+
 # archinstall 可能不会覆盖原有的 mirror，导致最后使用了错误的 mirror
 systemctl mask reflector.service
 cat>/etc/pacman.d/mirrorlist<<EOF
