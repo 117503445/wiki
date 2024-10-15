@@ -165,3 +165,262 @@ brew edit clash-verge-rev # prevent hash mismatch
 ```
 
 ref <https://github.com/microsoft/vscode-remote-release/issues/8541>
+
+## key
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change delete_forward to left_command + delete_or_backspace",
+            "from": {
+                "key_code": "delete_forward"
+            },
+            "to": [
+                {
+                    "key_code": "delete_or_backspace",
+                    "modifiers": [
+                        "left_control"
+                    ]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change command + h to option + control + f",
+            "from": {
+                "key_code": "h",
+                "modifiers": {
+                    "mandatory": [
+                        "left_control"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "f",
+                    "modifiers": [
+                        "left_option",
+                        "left_control"
+                    ]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change alt + f4 to command + Option + w",
+            "from": {
+                "key_code": "f4",
+                "modifiers": {
+                    "mandatory": [
+                        "left_alt"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "w",
+                    "modifiers": [
+                        "left_control",
+                        "left_option"
+                    ]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change F2 to Enter",
+            "from": {
+                "key_code": "f2"
+            },
+            "to": [
+                {
+                    "key_code": "return_or_enter"
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change F5 to command + r",
+            "from": {
+                "key_code": "f5"
+            },
+            "to": [
+                {
+                    "key_code": "r",
+                    "modifiers": [
+                        "left_control"
+                    ]
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+```json
+{
+    "manipulators": [
+        {
+            "description": "Change left_shift to F17 when used alone",
+            "from": {
+                "key_code": "left_shift",
+                "modifiers": {
+                    "optional": [
+                        "any"
+                    ]
+                }
+            },
+            "to": [
+                {
+                    "key_code": "left_shift"
+                }
+            ],
+            "to_if_alone": [
+                {
+                    "key_code": "f17"
+                }
+            ],
+            "type": "basic"
+        }
+    ]
+}
+```
+
+## sing-box
+
+```jsonc
+{
+    "log": {
+        "disabled": false,
+        "level": "trace",
+        "timestamp": true,
+        "output": "/opt/homebrew/var/log/singbox.log"
+    },
+    "experimental": {
+        // https://sing-box.sagernet.org/configuration/experimental/clash-api/
+        "clash_api": {
+            "external_controller": "0.0.0.0:9090", // 定义 Clash API 的外部控制器地址。"0.0.0.0:9090" 表示在本机的9090端口上监听外部的连接请求。
+            "default_mode": "rule", // 设置 Clash API 的默认模式。"rule" 模式意味着流量将根据用户定义的规则进行路由。
+            "external_ui": "metacubexd", // 指定外部用户界面(UI)的名称。这里的 "metacubexd" 是一个自定义 UI 的名称。
+            "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip", // 提供外部 UI 的下载 URL。这个 URL 是从 GitHub 上下载 "metacubexd" UI 的压缩包。
+            "external_ui_download_detour": "alilang", // 定义下载外部 UI 时使用的转发策略。"select" 表示将通过'select'出口选择转发
+            "secret": "iSBveBsKuvY3D9"
+        }
+    },
+    // "dns": {
+    //     "servers": [
+    //         {
+    //             "tag": "local",
+    //             "address": "223.5.5.5",
+    //             "detour": "direct"
+    //         }
+    //     ],
+    //     "rules": [
+    //         {
+    //             "outbound": "any",
+    //             "server": "local"
+    //         }
+    //     ],
+    //     "strategy": "ipv4_only"
+    // },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "0.0.0.0",
+            "listen_port": 1080
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "select",
+            "type": "selector",
+            "default": "alilang",
+            "outbounds": [
+                "alilang",
+                "direct"
+            ]
+        },
+        {
+            "type": "socks",
+            "tag": "alilang",
+            "server": "127.0.0.1",
+            "server_port": 13659,
+            "version": "5"
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        }
+    ],
+    "route": {
+        "rules": [
+            // {
+            //     "domain_suffix": [
+            //         "google.com"
+            //     ],
+            //     "outbound": "select"
+            // },
+            {
+                "rule_set": [
+                    "geosite-gfw"
+                ],
+                "domain_suffix": [
+                    "docs.docker.com"
+                ],
+                "outbound": "select"
+            }
+        ],
+        "rule_set": [
+            {
+                "type": "remote",
+                "tag": "geosite-gfw",
+                "format": "binary",
+                "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lyc8503/sing-box-rules/rule-set-geosite/geosite-gfw.srs",
+                "download_detour": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "direct"
+    }
+}
+```
+
+tabby 终端
+
+## replace
+
+```sh
+#!/usr/bin/env bash
+sed -i '.backup' 's/.mac:lang(zh-Hans){font-family:-apple-system,BlinkMacSystemFont,PingFang SC,Hiragino Sans GB,sans-serif}/.mac:lang(zh-Hans){font-family:"Microsoft YaHei Mono",-apple-system,BlinkMacSystemFont,PingFang SC,Hiragino Sans GB,sans-serif}/' "/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css"
+```
