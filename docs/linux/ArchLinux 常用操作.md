@@ -25,6 +25,16 @@ archinstall --config https://wiki.117503445.top/linux/script/user_configuration.
 
 然后修改 主机名、硬盘分区、用户密码
 
+在 chroot 的新系统中安装 SSH 密钥
+
+```sh
+curl https://wiki.117503445.top/linux/script/ssh.sh | bash
+
+# or 替换为自己的公钥
+
+mkdir -p ~/.ssh && echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYV5Hoaed4dQSmRoZrX+x6p+r16uBHVgv1Zkl8DOMRD 117503445-gen3 >> ~/.ssh/authorized_keys
+```
+
 ## 更新
 
 ```sh
