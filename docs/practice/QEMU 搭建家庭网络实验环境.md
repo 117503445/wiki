@@ -1,6 +1,6 @@
 # QEMU 搭建家庭网络实验环境
 
-在测试家庭网络时，如果直接在路由器上搞，可能会影响到家庭网络的正常使用。因此，我们可以使用 QEMU 搭建一个家庭网络实验环境，用于测试家庭网络的各种功能。具体的，本文中会创建 2 个虚拟机，一个作为路由器，一个作为终端，然后通过路由器实现终端访问外网。
+在测试家庭网络时，如果直接在路由器上搞，可能会影响到家庭网络的正常使用。因此，我们可以使用 QEMU 搭建一个家庭网络实验环境，用于测试家庭网络的各种功能。具体的，本文中会创建 2 个虚拟机，一个作为路由器 `router`，一个作为终端 `guest`，然后通过路由器实现终端访问外网。
 
 宿主机、虚拟机都使用 Arch Linux，文档齐全
 
@@ -44,12 +44,6 @@ su - builder -c "yay -Sy --noconfirm novnc"
 
 ```sh
 pacman -Syu --noconfirm aria2
-```
-
-下载镜像
-
-```sh
-aria2c -x 16 -s 16 https://geo.mirror.pkgbuild.com/images/v20241115.279641/Arch-Linux-x86_64-basic-20241115.279641.qcow2
 ```
 
 创建 `br0`，ref <https://wiki.archlinux.org/title/Network_bridge#Adding_the_main_network_interface_2>
@@ -112,6 +106,12 @@ allow br1
 EOF
 ```
 
+下载 ArchLinux qcow2 镜像
+
+```sh
+aria2c -x 16 -s 16 https://geo.mirror.pkgbuild.com/images/v20241115.279641/Arch-Linux-x86_64-basic-20241115.279641.qcow2
+```
+
 准备虚拟机镜像
 
 ```sh
@@ -119,7 +119,7 @@ cp Arch-Linux-x86_64-basic-20241115.279641.qcow2 router.qcow2
 cp Arch-Linux-x86_64-basic-20241115.279641.qcow2 guest.qcow2
 ```
 
-运行 `router` 虚拟机
+运行 `router` 虚拟机, `-enable-kvm` 启用 KVM 加速，`-m 4096M` 指定 4096M 内存
 
 ```sh
 qemu-system-x86_64 \
@@ -172,26 +172,27 @@ ip route
 ip neighbor
 ```
 
+`router` 虚拟机输出如下
+
 ![alt text](<QEMU 搭建家庭网络实验环境.assets/image.png>)
+
+`guest` 虚拟机输出如下
 
 ![alt text](<QEMU 搭建家庭网络实验环境.assets/image-1.png>)
 
 可以看到，`router` 虚拟机的 `eth0` 申请到了 `192.168.100.111`，已经可以上网了
+
+启用 SSH
 
 ```sh
 systemctl is-system-running # 预期 running，如果还是 starting，可以 systemctl list-jobs 查看任务，并 systemctl stop 卡住的任务
 systemctl enable --now sshd # 启用 sshd 服务
 ```
 
-启用 sshd 后，可以通过 `ssh arch@192.168.100.111` 登录到 `router` 虚拟机，再 `sudo su` 切到 `root` 用户。
-
-默认是用 systemd-networkd 管理网络的，可以通过 `systemctl status systemd-networkd` 查看是否启用
-
-在 `router` 虚拟机中
+启用 SSH 后，可以通过 `ssh arch@192.168.100.111` 登录到 `router` 虚拟机，再 `sudo su` 切到 `root` 用户。但 `guest` 还没联网，所以暂时还只能用 `NoVNC`。
 
 
-
-修改网络转发配置
+在 `router` 虚拟机中 修改网络转发配置
 ```sh
 sysctl -w net.ipv4.ip_forward=1
 sysctl -w net.ipv4.conf.all.forwarding=1
@@ -205,20 +206,10 @@ cat /proc/sys/net/ipv4/ip_forward
 # 预期输出 1
 ```
 
-添加 eth1 静态 ip 配置
+在 `router` 虚拟机中 添加 eth1 静态 ip 配置
 
 ```sh
-cat << EOF > /etc/systemd/network/10-eth1.network
-[Match]
-Name=eth1
-
-[Network]
-Address=192.168.50.1/24
-Gateway=192.168.50.1
-DNS=223.5.5.5
-EOF
-
-systemctl restart systemd-networkd
+ip address add 192.168.50.1/24 dev eth1
 ```
 
 检查
@@ -229,27 +220,21 @@ systemctl restart systemd-networkd
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute
-       valid_lft forever preferred_lft forever
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 52:54:00:12:34:56 brd ff:ff:ff:ff:ff:ff
     altname enp0s3
     altname ens3
     inet 192.168.100.111/24 metric 1024 brd 192.168.100.255 scope global dynamic eth0
        valid_lft 43143sec preferred_lft 43143sec
-    inet6 fe80::5054:ff:fe12:3456/64 scope link dadfailed tentative proto kernel_ll
-       valid_lft forever preferred_lft forever
 3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether 52:54:00:12:34:57 brd ff:ff:ff:ff:ff:ff
     altname enp0s4
     altname ens4
     inet 192.168.50.1/24 brd 192.168.50.255 scope global eth1
        valid_lft forever preferred_lft forever
-    inet6 fe80::5054:ff:fe12:3457/64 scope link proto kernel_ll
-       valid_lft forever preferred_lft forever
 ```
 
-在 guest 上设置静态 ip
+在 `guest` 上设置静态 ip
 
 ```sh
 ip address add 192.168.50.2/24 dev eth0
@@ -268,23 +253,8 @@ iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 ```
 
-发现 `router` 上的路由不对
-
-```sh
-default via 192.168.50.1 dev eth1 proto static
-default via 192.168.100.1 dev eth0 proto dhcp src 192.168.100.111 metric 1024
-192.168.50.0/24 dev eth1 proto kernel scope link src 192.168.50.1
-192.168.100.0/24 dev eth0 proto kernel scope link src 192.168.100.111 metric 1024
-192.168.100.1 dev eth0 proto dhcp scope link src 192.168.100.111 metric 1024
-```
-
-ip route delete default
-
-```sh
-default via 192.168.100.1 dev eth0 proto dhcp src 192.168.100.111 metric 1024
-192.168.50.0/24 dev eth1 proto kernel scope link src 192.168.50.1
-192.168.100.0/24 dev eth0 proto kernel scope link src 192.168.100.111 metric 1024
-192.168.100.1 dev eth0 proto dhcp scope link src 192.168.100.111 metric 1024
-```
+`guest` 上可以访问外网啦
 
 ![alt text](<QEMU 搭建家庭网络实验环境.assets/image-2.png>)
+
+但需注意的是，这只是搭建了最简单的实验环境，很多配置都没有做持久化。还有就是 Arch 默认使用 systemd-networkd 管理网络，静态设置接口 IP 可能与之产生冲突。
