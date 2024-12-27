@@ -1,5 +1,46 @@
 # QEMU 搭建家庭网络实验环境
 
+## 2024.12.26 Update
+
+如果使用其他网络管理器，如 systemd-networkd，则不要通过 `ip` 命令修改网络端口
+
+对于 systemd-networkd，直接执行以下命令即可
+
+```sh
+cat << EOF > /etc/systemd/network/br0.netdev
+[NetDev]
+Name=br0
+Kind=bridge
+EOF
+
+cat << EOF > /etc/systemd/network/20-br0.network
+[Match]
+Name=br0
+
+[Network]
+Address=192.168.100.149/24
+Gateway=192.168.100.1
+EOF
+
+cat << EOF > /etc/systemd/network/10-ens18.network
+[Match]
+Name=ens18
+
+[Network]
+Bridge=br0
+EOF
+
+cat << EOF > /etc/systemd/network/br1.netdev
+[NetDev]
+Name=br1
+Kind=bridge
+EOF
+
+systemctl reload systemd-networkd
+```
+
+## 正文
+
 在测试家庭网络时，如果直接在路由器上搞，可能会影响到家庭网络的正常使用。因此，我们可以使用 QEMU 搭建一个家庭网络实验环境，用于测试家庭网络的各种功能。具体的，本文中会创建 2 个虚拟机，一个作为路由器 `router`，一个作为终端 `guest`，然后通过路由器实现终端访问外网。
 
 宿主机、虚拟机都使用 Arch Linux，文档齐全
