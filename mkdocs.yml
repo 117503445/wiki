@@ -9,8 +9,7 @@ strict: true
 repo_name: '117503445/wiki'
 repo_url: 'https://github.com/117503445/wiki'
 
-# Copyright
-copyright: 'Copyright &copy; 2020 - 2024 117503445'
+copyright: 'Copyright &copy; 2020 - 2025 117503445'
 
 theme:
   name: material
@@ -26,9 +25,8 @@ theme:
   - search.suggest
   - search.highlight
   - content.code.copy
-  font:
-    text: Microsoft YaHei
-    code: Consolas
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#autoloading
+  font: false
 plugins:
   - search
   - git-revision-date-localized

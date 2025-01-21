@@ -1,4 +1,4 @@
-FROM 117503445/dev-python
+FROM registry.cn-hangzhou.aliyuncs.com/117503445-mirror/dev-python
 
 COPY ./requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt

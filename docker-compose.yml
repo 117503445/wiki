@@ -1,11 +1,8 @@
-version: '3.9'
-
 services:
   wiki-dev:
     build:
       context: ./
       dockerfile: Dockerfile_dev
-    container_name: wiki-dev
     volumes:
         - './:/workspace'
     ports:
