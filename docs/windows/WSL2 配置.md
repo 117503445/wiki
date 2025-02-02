@@ -1,5 +1,15 @@
 # WSL2 配置
 
+## 序言
+
+WSL2 是在 Windows 上使用 Linux 的技术。相比虚拟机，WSL2 具有以下难以替代的优点
+
+- 支持 CUDA
+- 直接对 Windows 的文件进行处理
+- 自动内存释放
+
+WSL2 的具体实现是微软魔改出一个 Linux 内核，然后在 Hyper-V 中运行。在复杂的开发过程中，WSL2 还是有玄学的兼容性问题。但是如果使用虚拟机，又很难支持 CUDA。所以建议 AI 相关的环境使用 WSL2，其他开发工作放在虚拟机里。
+
 ## 安装
 
 记得要在管理员模式下运行 PowerShell
@@ -19,12 +29,9 @@ wsl --status # should newest version
 在 `%UserProfile%\.wslconfig` 写入配置
 
 ```ini
-[wsl2]
-memory=96GB
-
 [experimental]
-autoMemoryReclaim=gradual
-sparseVhd=true
+autoMemoryReclaim=dropcache # 自动释放内存
+sparseVhd=true # 使用稀疏文件
 ```
 
 安装 Arch WSL
@@ -38,9 +45,12 @@ wsl --list
 wsl --set-default Arch
 ```
 
-建议修改配置 `/etc/wsl.conf` 防止影响 Windows 系统
+建议修改配置 `/etc/wsl.conf`
 
 ```ini
+[user]
+default=root
+
 [interop]
 enabled = false
 appendWindowsPath = false
@@ -54,7 +64,11 @@ appendWindowsPath = false
 
 通过 Geforce 在宿主机安装最新的 NVIDIA 驱动，即可在 WSL 中使用 CUDA
 
-安装 [nvidia-container-toolkit](https://aur.archlinux.org/packages/nvidia-container-toolkit) 后，即可在 WSL Docker 中使用 CUDA
+安装 nvidia-container-toolkit 后，即可在 WSL Docker 中使用 CUDA
+
+```sh
+pacman -Sy --noconfirm nvidia-container-toolkit
+```
 
 验证方法
 
@@ -78,21 +92,33 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 <https://www.yuque.com/xiongzichao/blog/yu4i5t>
 <https://zhaoji.wang/solve-the-problem-of-windows-10-ports-being-randomly-reserved-occupied-by-hyper-v/>
 
-## Docker 暴露端口
+## 网络模式
 
-2024.2.14 update: 别用这个方法，会导致 Docker 容器无法上网。建议在 <https://github.com/microsoft/WSL/issues/10494> 修复前，先用 HOST 网络模式。
+WSL 默认的网络模式是 NAT，可以改为 Mirror。但这 2 个都不太行，难以从其他机器直接访问 WSL 的端口。所以还是要用 Bridge 模式，给 WSL 分配独立的 IP 地址。
 
-在 WSL2 镜像网络模式下，Windows 无法连接 Docker 容器的端口
+首先确保 WSL 处于关机状态
 
-在 /etc/docker/daemon.json 中写入
-
-```json
-{
-    "iptables": false
-}
+```powershell
+wsl --shutdown
 ```
 
-ref <https://www.sulinehk.com/post/fix-docker-connection-issues-in-wsl2-mirrored-networking-mode/>
+参考 [WSL2设置桥接网络及高级设置](http://www.ronnyz.top/2023/11/18/WSL2%E8%AE%BE%E7%BD%AE%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C%E5%8F%8A%E9%AB%98%E7%BA%A7%E8%AE%BE%E7%BD%AE/)
+
+Hyper-V 管理器 - 虚拟交换机管理器 - 新建虚拟网络交换机，名称为 bridge，类型为外部网络，并且选择用于上网的网卡。
+
+然后修改 `%UserProfile%\.wslconfig`
+
+```ini
+[wsl2]
+networkingMode=bridged
+vmSwitch=bridge
+```
+
+再启动 WSL，就可以发现 WSL 已经有独立的 IP 地址了，而且不用折腾 Windows 上的防火墙。
+
+```powershell
+wsl
+```
 
 ## 开机自启
 
