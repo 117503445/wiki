@@ -48,12 +48,20 @@ wsl --set-default Arch
 建议修改配置 `/etc/wsl.conf`
 
 ```ini
-[user]
-default=root
+[boot]
+systemd=true
+
+[automount]
+enabled = false
+options = "metadata"
+mountFsTab = false
 
 [interop]
 enabled = false
 appendWindowsPath = false
+
+[network]
+hostname = YOUR_HOSTNAME
 ```
 
 也可以安装 NixOS
