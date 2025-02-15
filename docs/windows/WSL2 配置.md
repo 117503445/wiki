@@ -102,7 +102,7 @@ dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
 
 ## 网络模式
 
-WSL 默认的网络模式是 NAT，可以改为 Mirror。但这 2 个都不太行，难以从其他机器直接访问 WSL 的端口。所以还是要用 Bridge 模式，给 WSL 分配独立的 IP 地址。
+WSL 默认的网络模式是 NAT，可以改为 Mirror。但这 2 个都不太行，难以从其他机器直接访问 WSL 的端口。所以最好用的还是 Bridge 模式，给 WSL 分配独立的 IP 地址。
 
 首先确保 WSL 处于关机状态
 
@@ -127,6 +127,8 @@ vmSwitch=bridge
 ```powershell
 wsl
 ```
+
+需要注意的是，网桥模式已弃用了，没有官方文档支持。但截至 2025.2.15 的 2.4.11.0 版本，还能用。
 
 ## 开机自启
 
