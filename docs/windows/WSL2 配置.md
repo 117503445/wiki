@@ -82,6 +82,7 @@ pacman -Sy --noconfirm nvidia-container-toolkit
 
 ```sh
 docker run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
+docker run --rm -it --gpus=all registry.cn-hangzhou.aliyuncs.com/117503445-mirror/sync:linux.amd64.nvcr.io.nvidia.k8s.cuda-sample.nbody nbody -gpu -benchmark
 ```
 
 <https://zhuanlan.zhihu.com/p/621142457>
