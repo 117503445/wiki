@@ -133,10 +133,6 @@ wsl
 
 ## 开机自启
 
-准备 `start-arch.ps1`
+参考 <https://wiki.117503445.top/windows/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/>
 
-```powershell
-wsl -d arch bash -c "nohup bash -c 'while true; do sleep 1h; done &' &>/dev/null "
-```
-
-然后参考 <https://wiki.117503445.top/windows/%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/>
+启动程序路径 填写 `"C:\Program Files\WSL\wsl.exe"`
