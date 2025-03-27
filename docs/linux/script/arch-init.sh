@@ -20,8 +20,8 @@ EOF
 
 pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
-pacman -S which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi --needed --noconfirm
-
+pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi --needed --noconfirm
+go env -w GOPROXY=https://goproxy.cn,direct
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
 if [ ! -f /usr/bin/yay ]; then
