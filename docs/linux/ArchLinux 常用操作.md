@@ -1,12 +1,6 @@
 # ArchLinux 常用操作
 
-## 初始化
-
-`curl https://wiki.117503445.top/linux/script/arch-init.sh | bash`
-
-<https://wiki.117503445.top/linux/script/arch-init.sh>
-
-## archinstall
+## archinstall 安装
 
 ```sh
 systemctl is-system-running # 预期 running，否则检查网络或者其他问题
@@ -35,6 +29,12 @@ curl https://wiki.117503445.top/linux/script/ssh.sh | bash
 
 mkdir -p ~/.ssh && echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDYV5Hoaed4dQSmRoZrX+x6p+r16uBHVgv1Zkl8DOMRD 117503445-gen3 >> ~/.ssh/authorized_keys
 ```
+
+## 已有系统初始化
+
+`curl https://wiki.117503445.top/linux/script/arch-init.sh | bash`
+
+<https://wiki.117503445.top/linux/script/arch-init.sh>
 
 ## 更新
 
