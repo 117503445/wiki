@@ -20,7 +20,7 @@ EOF
 
 pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
-pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi --needed --noconfirm
+pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi podman skopeo umoci go-task zsh-autosuggestions zsh-syntax-highlighting --needed --noconfirm
 go env -w GOPROXY=https://goproxy.cn,direct
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
@@ -50,52 +50,28 @@ if [ ! -f /etc/docker/daemon.json ]; then
 EOF
 fi
 
-chsh -s /usr/bin/fish
+chsh -s /usr/bin/zsh
+sh -c "$(curl -fsSL https://install.ohmyz.sh)"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+cat << EOF > /root/.zshrc
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="eastwood"
 
-mkdir -p ~/.config/fish
-touch ~/.config/fish/node.fish
-cat << EOF > ~/.config/fish/config.fish
-if status is-interactive
-    set fish_greeting # Disable greeting
+zstyle ':omz:update' mode disabled  # disable automatic updates
+ZSH_CUSTOM=/usr/share/zsh
 
-    # set -x all_proxy "socks5://127.0.0.1:1080"; set -x http_proxy \$all_proxy; set -x https_proxy \$all_proxy
+plugins=(git golang rsync python docker docker-compose zsh-autosuggestions zsh-syntax-highlighting)
 
-    set -x PATH ~/.local/bin ~/go/bin \$PATH
-    
-    alias dc="docker compose"
-    alias dcu="dc up -d"
-    alias dcd="dc down"
-    alias dcl="dc logs -f"
-    alias dcp="dc pull"
-    alias dcr="dc restart"
-    alias dc-update="dcp && dcu"
-    alias upd="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --noconfirm"
-    function ta
-        set source \$argv[1]
-        set target (basename \$source)".tar"
-        tar -cvf \$target \$source
-    end
-    function targz
-        set source \$argv[1]
-        set target (basename \$source)".tar.gz"
-        tar -zcvf \$target \$source
-    end
-    function untar
-        set source \$argv[1]
-        tar -xvf \$source
-    end
-    function untargz
-        set source \$argv[1]
-        tar -zxvf \$source
-    end
-    source ~/.config/fish/node.fish
-end
+source $ZSH/oh-my-zsh.sh
+
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dcr="docker compose restart"
+alias dcl="docker compose logs -f"
+alias dcp="docker compose pull"
+alias dc-update="docker compose pull && docker compose up -d"
+alias c="clear"
 EOF
-
-# cat>>/etc/environment<<EOF
-# LANG=en_US.utf-8
-# LC_ALL=en_US.utf-8
-# EOF
 
 git config --global user.name "117503445"
 git config --global user.email t117503445@gmail.com
