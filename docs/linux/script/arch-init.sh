@@ -20,7 +20,7 @@ EOF
 
 pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
-pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi podman skopeo umoci go-task zsh-autosuggestions zsh-syntax-highlighting --needed --noconfirm
+pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi podman skopeo umoci go-task zsh-autosuggestions zsh-syntax-highlighting ncdu --needed --noconfirm
 go env -w GOPROXY=https://goproxy.cn,direct
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
@@ -72,6 +72,8 @@ alias dcp="docker compose pull"
 alias dc-update="docker compose pull && docker compose up -d"
 alias c="clear"
 alias arch-update="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Syu --noconfirm"
+
+export PATH="/root/go/bin:${PATH}"
 EOF
 
 git config --global user.name "117503445"
