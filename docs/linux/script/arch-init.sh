@@ -54,7 +54,7 @@ chsh -s /usr/bin/zsh
 sh -c "$(curl -fsSL https://install.ohmyz.sh)"
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 cat << EOF > /root/.zshrc
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/root/.oh-my-zsh"
 ZSH_THEME="eastwood"
 
 zstyle ':omz:update' mode disabled  # disable automatic updates
@@ -62,7 +62,7 @@ ZSH_CUSTOM=/usr/share/zsh
 
 plugins=(git golang rsync python docker docker-compose zsh-autosuggestions zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+source /root/.oh-my-zsh/oh-my-zsh.sh
 
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
@@ -71,6 +71,7 @@ alias dcl="docker compose logs -f"
 alias dcp="docker compose pull"
 alias dc-update="docker compose pull && docker compose up -d"
 alias c="clear"
+alias arch-update="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Syu --noconfirm"
 EOF
 
 git config --global user.name "117503445"
