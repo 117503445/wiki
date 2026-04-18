@@ -64,14 +64,19 @@ plugins=(git golang rsync python docker docker-compose zsh-autosuggestions zsh-s
 
 source /root/.oh-my-zsh/oh-my-zsh.sh
 
-alias dcu="docker compose up -d"
-alias dcd="docker compose down"
-alias dcr="docker compose restart"
-alias dcl="docker compose logs -f"
-alias dcp="docker compose pull"
-alias dc-update="docker compose pull && docker compose up -d"
 alias c="clear"
 alias arch-update="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Syu --noconfirm"
+alias cs="code-server"
+alias cr="cursor"
+alias task="go-task"
+alias t="go-task"
+alias dcu="docker compose up"
+alias dcd="docker compose down"
+alias dcr="docker compose run"
+alias dcl="docker compose logs"
+alias dcp="docker compose pull"
+alias dc-update="docker compose pull && docker compose up -d"
+alias dkr="docker run --rm -it --entrypoint sh"
 
 export PATH="/root/go/bin:${PATH}"
 EOF
