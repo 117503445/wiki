@@ -20,12 +20,11 @@ EOF
 
 pacman-key --init && pacman-key --populate
 pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Su --needed --noconfirm
-pacman -S go which wget zsh fish btop git docker docker-compose docker-buildx cronie nano vim micro net-tools dnsutils inetutils iproute2 traceroute parted btrfs-progs tmux tldr openssh rsync yazi podman skopeo umoci go-task zsh-autosuggestions zsh-syntax-highlighting ncdu --needed --noconfirm
+pacman -Syu which zsh fish btop git openssh docker docker-compose docker-buildx nano vim micro base-devel parted tmux python wget yazi go-task go zsh-autosuggestions zsh-syntax-highlighting podman skopeo umoci ncdu cloc fuse-overlayfs nvidia-container-toolkit github-cli jq rsync kubectl helm unzip zip npm --noconfirm
 go env -w GOPROXY=https://goproxy.cn,direct
 
 # install yay, https://cloudcone.com/docs/article/how-to-install-yay-helper-on-archlinux/
 if [ ! -f /usr/bin/yay ]; then
-    pacman -Sy base-devel --needed --noconfirm
     mkdir -p /tmp/yay-build
     useradd -m -G wheel builder && passwd -d builder
     chown -R builder:builder /tmp/yay-build
@@ -36,6 +35,11 @@ if [ ! -f /usr/bin/yay ]; then
     su - builder -c "export GOPROXY=https://goproxy.cn && cd /tmp/yay-build/yay && makepkg -si --noconfirm"
     rm -rf /tmp/yay-build
 fi
+
+su - builder -c "yay -Su code-server claude-code cursor-cli openai-codex-bin --noconfirm"
+
+npm install @serverless-devs/s -g
+wget https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil-v1.7.19-linux-amd64.zip && unzip ossutil-v1.7.19-linux-amd64.zip && mv ossutil-v1.7.19-linux-amd64/ossutil /usr/local/bin/ && rm ossutil-v1.7.19-linux-amd64.zip ossutil-v1.7.19-linux-amd64/ossutil64 && rm -r ossutil-v1.7.19-linux-amd64 || echo "Warning: Failed to download ossutil"
 
 if [ ! -f /etc/docker/daemon.json ]; then
     mkdir -p /etc/docker
@@ -53,33 +57,9 @@ fi
 chsh -s /usr/bin/zsh
 sh -c "$(curl -fsSL https://install.ohmyz.sh)"
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cat << EOF > /root/.zshrc
-export ZSH="/root/.oh-my-zsh"
-ZSH_THEME="eastwood"
+go install github.com/117503445/docker-dev/scripts/shell-init@master && ~/go/bin/shell-init
+go install github.com/117503445/docker-dev/scripts/vibe-init@master && ~/go/bin/vibe-init
 
-zstyle ':omz:update' mode disabled  # disable automatic updates
-ZSH_CUSTOM=/usr/share/zsh
-
-plugins=(git golang rsync python docker docker-compose zsh-autosuggestions zsh-syntax-highlighting)
-
-source /root/.oh-my-zsh/oh-my-zsh.sh
-
-alias c="clear"
-alias arch-update="pacman -Sy archlinux-keyring --needed --noconfirm && pacman -Syu --noconfirm"
-alias cs="code-server"
-alias cr="cursor"
-alias task="go-task"
-alias t="go-task"
-alias dcu="docker compose up"
-alias dcd="docker compose down"
-alias dcr="docker compose run"
-alias dcl="docker compose logs"
-alias dcp="docker compose pull"
-alias dc-update="docker compose pull && docker compose up -d"
-alias dkr="docker run --rm -it --entrypoint sh"
-
-export PATH="/root/go/bin:${PATH}"
-EOF
 
 git config --global user.name "117503445"
 git config --global user.email t117503445@gmail.com
